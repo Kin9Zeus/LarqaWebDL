@@ -77,7 +77,7 @@ const projects = [
     gallery: [
       'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1502005229766-939760a98f78?q=80&w=800&auto=format&fit=crop'
+      'https://images.unsplash.com/photo-1515263487990-61b07816b324?q=80&w=800&auto=format&fit=crop'
     ]
   },
 ];

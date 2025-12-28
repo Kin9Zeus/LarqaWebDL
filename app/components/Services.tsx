@@ -20,7 +20,7 @@ const services = [
     id: 3,
     title: "Consultoría y Gestión",
     description: "Acompañamiento integral durante todo el proceso constructivo. Aseguramos que el diseño se ejecute fielmente, cuidando el presupuesto y los tiempos.",
-    image: "https://images.unsplash.com/photo-1553877615-30c73165327b?q=80&w=1200&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop"
   },
   {
     id: 4,
