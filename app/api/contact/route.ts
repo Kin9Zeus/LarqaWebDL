@@ -1,29 +1,16 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
     const { nombre, apellido, email, whatsapp, service, preference, message } = await req.json();
 
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-      // Configuración robusta para entornos Cloud
-      connectionTimeout: 30000, // 30 segundos de espera
-      greetingTimeout: 30000,
-      socketTimeout: 30000,
-      debug: true, // Habilitar logs detallados
-      logger: true // Loguear a consola
-    });
-
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: 'larqa.arquitectura@gmail.com',
+    const data = await resend.emails.send({
+      from: 'Larqa Web <info@larqa.co>',
+      to: ['larqa.arquitectura@gmail.com'],
+      replyTo: email,
       subject: `Nuevo Cliente Potencial - ${nombre} ${apellido}`,
       html: `
         <div style="font-family: Arial, sans-serif; color: #333;">
@@ -61,13 +48,16 @@ export async function POST(req: Request) {
           </p>
         </div>
       `,
-    };
+    });
 
-    await transporter.sendMail(mailOptions);
+    if (data.error) {
+      console.error('Error sending email:', data.error);
+      return NextResponse.json({ message: 'Error sending email', error: data.error }, { status: 500 });
+    }
 
     return NextResponse.json({ message: 'Email sent successfully' }, { status: 200 });
   } catch (error) {
-    console.error('Error sending email:', error);
-    return NextResponse.json({ message: 'Error sending email' }, { status: 500 });
+    console.error('Error processing request:', error);
+    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
   }
 }
