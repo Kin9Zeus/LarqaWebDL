@@ -62,7 +62,14 @@ export default function Services() {
              ))}
              {/* Default Image or Placeholder when nothing hovered */}
              <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${hoveredService ? 'opacity-0' : 'opacity-100'}`}>
-                <span className="text-beige-300 font-serif text-6xl opacity-20 italic">Larqa</span>
+                <div className="relative w-48 h-24 opacity-20">
+                    <Image
+                        src="/logo.png"
+                        alt="Larqa Logo"
+                        fill
+                        className="object-contain"
+                    />
+                </div>
              </div>
           </div>
         </div>
@@ -100,6 +107,25 @@ export default function Services() {
                             </h3>
                             <span className="text-xs font-mono text-gray-400 mt-2 md:mt-0">0{service.id}</span>
                         </div>
+
+                        {/* Mobile Image */}
+                        <div className="relative w-full h-64 mb-6 overflow-hidden rounded-sm lg:hidden">
+                             <motion.div 
+                                className="relative w-full h-full"
+                                initial={{ scale: 1.1, opacity: 0 }}
+                                whileInView={{ scale: 1, opacity: 1 }}
+                                transition={{ duration: 0.8, ease: "easeOut" }}
+                                viewport={{ once: false, amount: 0.3 }}
+                             >
+                                <Image
+                                    src={service.image}
+                                    alt={service.title}
+                                    fill
+                                    className="object-cover"
+                                />
+                             </motion.div>
+                        </div>
+
                         <p className="text-black-soft font-light leading-relaxed max-w-xl group-hover:translate-x-4 transition-transform duration-500 ease-out delay-75 opacity-70 group-hover:opacity-100">
                             {service.description}
                         </p>

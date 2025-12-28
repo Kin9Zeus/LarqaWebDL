@@ -99,7 +99,7 @@ export default function Contact() {
           <div className="space-y-6 text-black-rich font-light">
             <div className="cursor-hover inline-block">
               <h4 className="text-sm uppercase tracking-widest mb-1 font-bold">Email</h4>
-              <p>contacto@larqa.com</p>
+              <p>larqa.arquitectura@gmail.com</p>
             </div>
             <br />
             <div className="cursor-hover inline-block">

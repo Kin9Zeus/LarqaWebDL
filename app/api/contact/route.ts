@@ -44,7 +44,7 @@ export async function POST(req: Request) {
           <p style="background-color: #f1f1f1; padding: 15px; border-radius: 5px;">${message}</p>
           
           <p style="font-size: 12px; color: #888; margin-top: 30px; border-top: 1px solid #eee; padding-top: 10px;">
-            Este correo fue enviado automáticamente desde larqa.com
+            Este correo fue enviado automáticamente desde la web de Larqa
           </p>
         </div>
       `,

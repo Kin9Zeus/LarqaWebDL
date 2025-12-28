@@ -39,13 +39,13 @@ const projects = [
     id: 3, 
     title: 'Refugio Andino', 
     category: 'Residencial', 
-    image: 'https://images.unsplash.com/photo-1518005052357-e984334cb994?q=80&w=800&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1542718610-a1d656d1884c?q=80&w=800&auto=format&fit=crop',
     year: '2024',
     location: 'Cusco, PE',
     area: '280 m²',
     description: 'Situado a 3,400 metros de altura, este refugio reinterpreta la arquitectura vernácula con técnicas contemporáneas. Muros de adobe reforzado y techos de paja se combinan con acero corten para resistir el clima extremo sin perder calidez.',
     gallery: [
-      'https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1518732656745-d417788bc796?q=80&w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1449844908441-8829872d2607?q=80&w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?q=80&w=800&auto=format&fit=crop'
     ]
@@ -84,8 +84,17 @@ const projects = [
 
 export default function Projects() {
   const targetRef = useRef(null);
+  const detailsRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // Adjust transform range based on number of projects to ensure full scroll
   const x = useTransform(scrollYProgress, [0, 1], ['0%', '-75%']);
@@ -94,24 +103,40 @@ export default function Projects() {
   useEffect(() => {
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
+      // Reset scroll position of details panel
+      if (detailsRef.current) {
+        detailsRef.current.scrollTop = 0;
+      }
     } else {
       document.body.style.overflow = 'unset';
     }
   }, [selectedProject]);
 
+  const handleNextProject = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!selectedProject) return;
+    
+    const currentIndex = projects.findIndex(p => p.id === selectedProject.id);
+    const nextIndex = (currentIndex + 1) % projects.length;
+    setSelectedProject(projects[nextIndex]);
+  };
+
   return (
-    <section ref={targetRef} className="relative h-[400vh] bg-beige-50">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        <motion.div style={{ x }} className="flex gap-8 md:gap-16 px-6 md:px-24">
-            <div className="flex-shrink-0 w-[80vw] md:w-[400px] h-[60vh] flex flex-col justify-center">
+    <section ref={targetRef} className="relative h-auto md:h-[400vh] bg-beige-50">
+      <div className="relative md:sticky md:top-0 flex h-auto md:h-screen items-center md:overflow-hidden pt-32 pb-8 md:py-0">
+        <motion.div style={{ x: isMobile ? 0 : x }} className="flex gap-6 md:gap-16 px-6 md:px-24 overflow-x-auto md:overflow-visible w-full md:w-auto snap-x snap-mandatory md:snap-none pb-4 md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="flex-shrink-0 w-[85vw] md:w-[400px] h-[50vh] md:h-[60vh] flex flex-col justify-center snap-center">
                 <span className="text-sm uppercase tracking-widest text-beige-900 mb-4">Portafolio</span>
                 <h1 className="text-5xl md:text-7xl font-serif text-black-rich mb-6">Proyectos <br/> Seleccionados</h1>
                 <div className="w-12 h-1 bg-black-rich mb-6"></div>
                 <p className="text-black-soft text-lg font-light leading-relaxed">
                   Espacios que dialogan con el entorno. Diseños que inspiran calma y vitalidad.
                 </p>
-                <div className="mt-8 text-sm text-gray-400 animate-pulse">
+                <div className="mt-8 text-sm text-gray-400 animate-pulse md:block hidden">
                   (Scroll hacia abajo para explorar)
+                </div>
+                <div className="mt-8 text-sm text-gray-400 animate-pulse md:hidden">
+                  (Desliza para explorar →)
                 </div>
             </div>
           {projects.map((project) => (
@@ -119,7 +144,7 @@ export default function Projects() {
               layoutId={`project-card-${project.id}`}
               key={project.id} 
               onClick={() => setSelectedProject(project)}
-              className="group relative flex-shrink-0 w-[80vw] md:w-[600px] h-[60vh] md:h-[70vh] overflow-hidden bg-white shadow-sm cursor-pointer"
+              className="group relative flex-shrink-0 w-[85vw] md:w-[600px] h-[60vh] md:h-[70vh] overflow-hidden bg-white shadow-sm cursor-pointer snap-center"
             >
               <motion.div layoutId={`project-image-${project.id}`} className="relative w-full h-full">
                 <Image
@@ -193,7 +218,7 @@ export default function Projects() {
               </div>
 
               {/* Right Column: Details (Scrollable) */}
-              <div className="w-full md:w-1/2 h-full overflow-y-auto bg-white p-8 md:p-16 relative">
+              <div ref={detailsRef} className="w-full md:w-1/2 h-full overflow-y-auto bg-white p-8 md:p-16 relative">
                  <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -236,26 +261,45 @@ export default function Projects() {
                     </div>
 
                     {/* Gallery */}
-                    <div>
-                        <h3 className="text-2xl font-serif text-black-rich mb-8">Galería</h3>
-                        <div className="space-y-6">
+                    <div className="w-full">
+                        <div className="flex justify-between items-end mb-8">
+                            <h3 className="text-2xl font-serif text-black-rich">Galería</h3>
+                            <span className="text-xs uppercase tracking-widest text-gray-400 hidden md:block">Desliza para explorar</span>
+                        </div>
+                        
+                        {/* Carousel Container with negative margins to bleed to edges */}
+                        <div className="flex gap-6 overflow-x-auto pb-8 -mx-8 px-8 md:-mx-16 md:px-16 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                             {selectedProject.gallery.map((img, idx) => (
-                                <div key={idx} className="relative h-[300px] w-full overflow-hidden rounded-sm group">
+                                <motion.div 
+                                    key={idx} 
+                                    initial={{ opacity: 0, x: 50 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: idx * 0.1, duration: 0.5 }}
+                                    viewport={{ once: true }}
+                                    className="relative flex-shrink-0 w-[85%] md:w-[350px] h-[250px] md:h-[300px] snap-center rounded-sm overflow-hidden shadow-md group cursor-pointer"
+                                >
                                     <Image 
                                         src={img}
-                                        alt={`Gallery ${idx + 1}`}
+                                        alt={`${selectedProject.title} - Vista ${idx + 1}`}
                                         fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
-                                </div>
+                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
+                                    
+                                    {/* Card overlay info */}
+                                    <div className="absolute bottom-0 left-0 p-4 w-full bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <p className="text-white text-xs uppercase tracking-widest">Vista {idx + 1}</p>
+                                    </div>
+                                </motion.div>
                             ))}
                         </div>
+                        <p className="text-xs text-center text-gray-400 mt-[-10px] md:hidden animate-pulse">Desliza →</p>
                     </div>
 
                     {/* Navigation Footer */}
                     <div className="mt-16 pt-8 border-t border-black-rich/10 flex justify-between items-center">
                         <span className="text-xs uppercase tracking-widest text-gray-400">Siguiente Proyecto</span>
-                        <button onClick={(e) => { e.stopPropagation(); /* Logic for next project could go here */ }} className="group flex items-center gap-2 text-black-rich hover:text-beige-600 transition-colors cursor-hover">
+                        <button onClick={handleNextProject} className="group flex items-center gap-2 text-black-rich hover:text-beige-600 transition-colors cursor-hover">
                             Ver Siguiente <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform"/>
                         </button>
                     </div>

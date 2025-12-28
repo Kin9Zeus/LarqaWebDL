@@ -11,7 +11,7 @@ export default function Footer() {
         </div>
         
         <div className="flex space-x-8 mb-8 md:mb-0">
-          <Link href="#" className="text-xs uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Instagram</Link>
+          <Link href="https://www.instagram.com/larqa_arquitectura?igsh=bW41c3Z4OHg1bnBw" target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Instagram</Link>
           <Link href="#" className="text-xs uppercase tracking-widest text-gray-400 hover:text-white transition-colors">LinkedIn</Link>
           <Link href="#" className="text-xs uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Behance</Link>
         </div>
