@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { X, ArrowRight } from 'lucide-react';
+import { X, ArrowRight, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const projects = [
   { 
@@ -85,6 +85,7 @@ const projects = [
 export default function Projects() {
   const targetRef = useRef(null);
   const detailsRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -121,6 +122,46 @@ export default function Projects() {
     setSelectedProject(projects[nextIndex]);
   };
 
+  // Gallery scroll with arrow buttons
+  const scrollGallery = (direction: 'left' | 'right') => {
+    if (!galleryRef.current) return;
+    const scrollAmount = 380; // ~card width + gap
+    galleryRef.current.scrollBy({
+      left: direction === 'right' ? scrollAmount : -scrollAmount,
+      behavior: 'smooth'
+    });
+  };
+
+  // Drag-to-scroll for desktop gallery
+  const handleGalleryMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = galleryRef.current;
+    if (!el) return;
+    const startX = e.pageX;
+    const scrollLeft = el.scrollLeft;
+    let moved = false;
+
+    const onMouseMove = (ev: MouseEvent) => {
+      const dx = ev.pageX - startX;
+      if (Math.abs(dx) > 3) moved = true;
+      el.scrollLeft = scrollLeft - dx;
+    };
+
+    const onMouseUp = () => {
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+      el.style.cursor = 'grab';
+      // Prevent click if user was dragging
+      if (moved) {
+        const preventClick = (ev: Event) => { ev.stopPropagation(); ev.preventDefault(); };
+        el.addEventListener('click', preventClick, { capture: true, once: true });
+      }
+    };
+
+    el.style.cursor = 'grabbing';
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  };
+
   return (
     <section ref={targetRef} className="relative h-auto md:h-[400vh] bg-beige-50">
       <div className="relative md:sticky md:top-0 flex h-auto md:h-screen items-center md:overflow-hidden pt-32 pb-8 md:py-0">
@@ -151,6 +192,8 @@ export default function Projects() {
                     src={project.image}
                     alt={project.title}
                     fill
+                    sizes="(max-width: 768px) 85vw, 600px"
+                    priority={project.id === 1}
                     className="object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
               </motion.div>
@@ -205,6 +248,7 @@ export default function Projects() {
                         src={selectedProject.image}
                         alt={selectedProject.title}
                         fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover"
                     />
                     <div className="absolute inset-0 bg-black/20"></div>
@@ -262,27 +306,46 @@ export default function Projects() {
 
                     {/* Gallery */}
                     <div className="w-full">
-                        <div className="flex justify-between items-end mb-8">
+                        <div className="flex justify-between items-center mb-8">
                             <h3 className="text-2xl font-serif text-black-rich">Galería</h3>
-                            <span className="text-xs uppercase tracking-widest text-gray-400 hidden md:block">Desliza para explorar</span>
+                            <div className="hidden md:flex items-center gap-3">
+                              <button
+                                onClick={() => scrollGallery('left')}
+                                className="w-10 h-10 rounded-full border border-black-rich/20 flex items-center justify-center hover:bg-black-rich hover:text-white transition-colors duration-300"
+                                aria-label="Anterior imagen"
+                              >
+                                <ChevronLeft size={18} />
+                              </button>
+                              <button
+                                onClick={() => scrollGallery('right')}
+                                className="w-10 h-10 rounded-full border border-black-rich/20 flex items-center justify-center hover:bg-black-rich hover:text-white transition-colors duration-300"
+                                aria-label="Siguiente imagen"
+                              >
+                                <ChevronRight size={18} />
+                              </button>
+                            </div>
                         </div>
                         
-                        {/* Carousel Container with negative margins to bleed to edges */}
-                        <div className="flex gap-6 overflow-x-auto pb-8 -mx-8 px-8 md:-mx-16 md:px-16 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                        {/* Carousel Container — drag-to-scroll + arrow navigation on desktop */}
+                        <div
+                          ref={galleryRef}
+                          onMouseDown={handleGalleryMouseDown}
+                          className="flex gap-6 overflow-x-auto pb-8 -mx-8 px-8 md:-mx-16 md:px-16 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] md:cursor-grab md:select-none"
+                        >
                             {selectedProject.gallery.map((img, idx) => (
                                 <motion.div 
                                     key={idx} 
-                                    initial={{ opacity: 0, x: 50 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: idx * 0.1, duration: 0.5 }}
-                                    viewport={{ once: true }}
-                                    className="relative flex-shrink-0 w-[85%] md:w-[350px] h-[250px] md:h-[300px] snap-center rounded-sm overflow-hidden shadow-md group cursor-pointer"
+                                    initial={{ opacity: 0, x: 30 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: idx * 0.08, duration: 0.3 }}
+                                    className="relative flex-shrink-0 w-[85%] md:w-[350px] h-[250px] md:h-[300px] snap-center rounded-sm overflow-hidden shadow-md group"
                                 >
                                     <Image 
                                         src={img}
                                         alt={`${selectedProject.title} - Vista ${idx + 1}`}
                                         fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                        sizes="(max-width: 768px) 85vw, 350px"
+                                        className="object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none"
                                     />
                                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
                                     

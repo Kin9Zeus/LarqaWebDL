@@ -9,6 +9,7 @@
   --color-beige-100: #f5f5f0;
   --color-beige-200: #e6e6dc;
   --color-beige-300: #dcdcc8;
+  --color-beige-600: #8a8a75;
   --color-beige-900: #5c5c4f;
   
   --color-black-rich: #1a1a1a;
@@ -46,6 +47,7 @@
   --color-beige-100: var(--color-beige-100);
   --color-beige-200: var(--color-beige-200);
   --color-beige-300: var(--color-beige-300);
+  --color-beige-600: var(--color-beige-600);
   --color-beige-900: var(--color-beige-900);
   
   --color-black-rich: var(--color-black-rich);
@@ -84,9 +86,10 @@ body {
   height: 200%;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: 9998;
+  z-index: 50;
   animation: grain 8s steps(10) infinite;
-  opacity: 0.4;
+  will-change: transform;
+  opacity: 0.3;
 }
 
 .bg-mesh {

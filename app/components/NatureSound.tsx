@@ -12,6 +12,15 @@ export default function NatureSound() {
     audioRef.current = new Audio('/sounds/rain-drum-strike-sound-bath-321676.mp3'); 
     audioRef.current.loop = true;
     audioRef.current.volume = 0.1; // Very subtle volume
+
+    return () => {
+      // Cleanup: pause and release the Audio object on unmount
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = '';
+        audioRef.current = null;
+      }
+    };
   }, []);
 
   const toggleSound = () => {
@@ -31,8 +40,8 @@ export default function NatureSound() {
   return (
     <button
       onClick={toggleSound}
-      className="fixed bottom-6 right-6 z-50 p-3 bg-white/50 backdrop-blur-md rounded-full shadow-lg hover:bg-white hover:scale-105 transition-all text-black-rich border border-beige-200 group"
-      aria-label="Toggle Nature Sound"
+      className="fixed bottom-6 right-6 z-50 p-3 bg-white/50 backdrop-blur-md rounded-full shadow-lg hover:bg-white hover:scale-105 transition-all text-black-rich border border-beige-200 group min-w-[44px] min-h-[44px] flex items-center justify-center"
+      aria-label={isPlaying ? 'Silenciar sonido ambiente' : 'Activar sonido ambiente'}
       title="Ambiente Natural"
     >
       {isPlaying ? (

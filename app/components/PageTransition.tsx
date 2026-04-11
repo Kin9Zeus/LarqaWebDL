@@ -1,6 +1,9 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+// ⚠️ Internal Next.js import — may break on major version updates.
+// Required for FrozenRouter pattern to prevent content flash during transitions.
+// If this breaks after a Next.js upgrade, check if LayoutRouterContext has moved.
 import { LayoutRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useContext, useRef } from 'react';
 
@@ -22,10 +25,10 @@ export default function PageTransition({ children }: { children: React.ReactNode
     <AnimatePresence mode="wait">
       <motion.div
         key={pathname}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} // Custom Bezier for "Luxury" feel
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
         className="w-full min-h-screen"
       >
         <FrozenRouter>{children}</FrozenRouter>

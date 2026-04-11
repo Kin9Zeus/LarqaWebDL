@@ -1,5 +1,5 @@
 'use client';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Image from 'next/image';
 
@@ -55,6 +55,7 @@ export default function Services() {
                         src={service.image} 
                         alt={service.title}
                         fill
+                        sizes="(max-width: 1024px) 0px, 40vw"
                         className="object-cover opacity-90"
                     />
                     <div className="absolute inset-0 bg-black/10 mix-blend-multiply"></div>
@@ -77,9 +78,9 @@ export default function Services() {
         {/* Right Column: Editorial List */}
         <div className="lg:col-span-7 flex flex-col justify-center">
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.4 }}
                 className="mb-16"
             >
                 <span className="text-sm uppercase tracking-widest text-beige-900 mb-4 block">Lo que hacemos</span>
@@ -93,10 +94,10 @@ export default function Services() {
                 {services.map((service, index) => (
                     <motion.div
                         key={service.id}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 12 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.1 }}
+                        viewport={{ once: true, margin: "-30px" }}
+                        transition={{ delay: index * 0.05, duration: 0.4 }}
                         onMouseEnter={() => setHoveredService(service.id)}
                         onMouseLeave={() => setHoveredService(null)}
                         className="group border-t border-black-rich/10 py-12 cursor-hover transition-colors duration-500 hover:bg-white/40"
@@ -121,6 +122,7 @@ export default function Services() {
                                     src={service.image}
                                     alt={service.title}
                                     fill
+                                    sizes="100vw"
                                     className="object-cover"
                                 />
                              </motion.div>

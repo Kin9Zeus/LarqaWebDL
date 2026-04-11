@@ -145,9 +145,10 @@ export default function Contact() {
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                    <label className="block text-xs uppercase tracking-widest text-black-soft mb-2">Nombre</label>
+                    <label htmlFor="contact-nombre" className="block text-xs uppercase tracking-widest text-black-soft mb-2">Nombre</label>
                     <input 
                         required 
+                        id="contact-nombre"
                         name="nombre"
                         value={formData.nombre}
                         onChange={handleChange}
@@ -157,9 +158,10 @@ export default function Contact() {
                     />
                     </div>
                     <div>
-                    <label className="block text-xs uppercase tracking-widest text-black-soft mb-2">Apellido</label>
+                    <label htmlFor="contact-apellido" className="block text-xs uppercase tracking-widest text-black-soft mb-2">Apellido</label>
                     <input 
                         required 
+                        id="contact-apellido"
                         name="apellido"
                         value={formData.apellido}
                         onChange={handleChange}
@@ -172,9 +174,10 @@ export default function Contact() {
                 
                 <div className="grid grid-cols-1 gap-6">
                     <div>
-                        <label className="block text-xs uppercase tracking-widest text-black-soft mb-2">Email</label>
+                        <label htmlFor="contact-email" className="block text-xs uppercase tracking-widest text-black-soft mb-2">Email</label>
                         <input 
                             required 
+                            id="contact-email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
@@ -184,10 +187,11 @@ export default function Contact() {
                         />
                     </div>
                     <div>
-                        <label className="block text-xs uppercase tracking-widest text-black-soft mb-2">WhatsApp</label>
+                        <label htmlFor="contact-whatsapp" className="block text-xs uppercase tracking-widest text-black-soft mb-2">WhatsApp</label>
                         <div className="flex gap-3">
                           <div className="relative w-[120px] shrink-0">
                              <select
+                                id="contact-country-code"
                                 name="countryCode"
                                 value={formData.countryCode}
                                 onChange={handleChange}
@@ -207,6 +211,7 @@ export default function Contact() {
                           </div>
                           <input 
                               required 
+                              id="contact-whatsapp"
                               name="whatsapp"
                               value={formData.whatsapp}
                               onChange={handleChange}
@@ -258,9 +263,10 @@ export default function Contact() {
                 </div>
                 
                 <div>
-                  <label className="block text-xs uppercase tracking-widest text-black-soft mb-2">Servicio de Interés</label>
+                  <label htmlFor="contact-service" className="block text-xs uppercase tracking-widest text-black-soft mb-2">Servicio de Interés</label>
                   <div className="relative">
                     <select 
+                        id="contact-service"
                         name="service"
                         value={formData.service}
                         onChange={handleChange}
@@ -282,9 +288,10 @@ export default function Contact() {
                 </div>
                 
                 <div>
-                  <label className="block text-xs uppercase tracking-widest text-black-soft mb-2">Mensaje</label>
+                  <label htmlFor="contact-message" className="block text-xs uppercase tracking-widest text-black-soft mb-2">Mensaje</label>
                   <textarea 
                     required 
+                    id="contact-message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
@@ -295,12 +302,13 @@ export default function Contact() {
                 </div>
 
                 {formState === 'error' && (
-                    <p className="text-red-500 text-xs">Hubo un error al enviar el mensaje. Por favor intenta de nuevo.</p>
+                    <p id="contact-form-error" className="text-red-500 text-xs" role="alert">Hubo un error al enviar el mensaje. Por favor intenta de nuevo.</p>
                 )}
 
                 <button 
                   type="submit" 
                   disabled={formState === 'loading'}
+                  aria-describedby={formState === 'error' ? 'contact-form-error' : undefined}
                   className="cursor-hover w-full bg-black-rich text-white py-4 text-xs uppercase tracking-[0.2em] hover:bg-black-soft transition-colors duration-300 mt-4 flex items-center justify-center disabled:opacity-70"
                 >
                   {formState === 'loading' ? <Loader2 className="animate-spin" size={20} /> : 'Enviar Solicitud'}

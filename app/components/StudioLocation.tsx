@@ -9,8 +9,9 @@ export default function StudioLocation() {
            {/* Placeholder for a stylized map or studio location shot */}
            <Image 
              src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1600&auto=format&fit=crop"
-             alt="Larqa Studio Location"
+             alt="Oficina del estudio Larqa Arquitectura en Bogotá, Colombia"
              fill
+             sizes="(max-width: 1280px) 100vw, 1280px"
              className="object-cover"
            />
            <div className="absolute inset-0 bg-black/10 flex items-center justify-center">

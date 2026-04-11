@@ -7,7 +7,8 @@ export default function Hero() {
       {/* Abstract Background Animation */}
       <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
         <motion.div
-          className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-beige-200 rounded-full blur-[100px]"
+          className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-beige-200 rounded-full blur-[60px] md:blur-[100px]"
+          style={{ willChange: 'transform' }}
           animate={{
             x: [0, 100, 0],
             y: [0, 50, 0],
@@ -16,7 +17,8 @@ export default function Hero() {
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-beige-100 rounded-full blur-[120px]"
+          className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-beige-100 rounded-full blur-[80px] md:blur-[120px]"
+          style={{ willChange: 'transform' }}
           animate={{
             x: [0, -50, 0],
             y: [0, -100, 0],
@@ -29,9 +31,9 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <span className="block text-xs md:text-sm uppercase tracking-[0.4em] text-beige-900 mb-6">
             Estudio de Arquitectura

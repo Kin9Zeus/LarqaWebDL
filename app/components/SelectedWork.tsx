@@ -24,16 +24,18 @@ export default function SelectedWork() {
         {/* Featured Project Big Card */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
             className="lg:col-span-8 relative h-[60vh] overflow-hidden group cursor-hover"
           >
             <Image 
               src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1600&auto=format&fit=crop"
               alt="Casa del Lago"
               fill
+              sizes="(max-width: 1024px) 100vw, 66vw"
+              priority
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
@@ -67,10 +69,10 @@ export default function SelectedWork() {
           ].map((project, idx) => (
             <motion.div 
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.2, duration: 0.8 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: idx * 0.1, duration: 0.5 }}
               className="group cursor-hover"
             >
               <div className="relative h-[400px] mb-6 overflow-hidden">
@@ -78,6 +80,7 @@ export default function SelectedWork() {
                   src={project.image}
                   alt={project.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               </div>

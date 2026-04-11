@@ -10,8 +10,8 @@ export default function Philosophy() {
     offset: ["start end", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const opacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
 
   return (
     <section ref={ref} className="py-32 px-6 bg-beige-50 relative overflow-hidden">
@@ -38,8 +38,9 @@ export default function Philosophy() {
             <motion.div style={{ y }} className="absolute inset-0 w-full h-[120%]">
               <Image 
                 src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop" 
-                alt="Architecture Detail" 
+                alt="Casa moderna con diseño minimalista integrada al paisaje natural" 
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
               />
             </motion.div>

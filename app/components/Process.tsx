@@ -45,10 +45,10 @@ export default function Process() {
           {steps.map((step, index) => (
             <motion.div 
               key={step.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2, duration: 0.6 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ delay: index * 0.08, duration: 0.4 }}
               className="relative z-10 flex flex-col items-center text-center group"
             >
               <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center border border-beige-200 mb-8 shadow-sm group-hover:scale-110 transition-transform duration-300 group-hover:border-black-rich">
