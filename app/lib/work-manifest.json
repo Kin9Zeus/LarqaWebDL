@@ -1,0 +1,137 @@
+[
+  {
+    "slug": "casa-madera",
+    "model": {
+      "src": "/work/casa-madera-model.webp",
+      "width": 1792,
+      "height": 2400,
+      "blurDataURL": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4IMoAAADwBQCdASoYACAAPtVaokyoJSMiMAwBABqJQBOmUI/E/tB01nfHnMxBjWywWvNVcKk1VRNSeZbSAAD8S0PnV/lAQWtSGF1bE3ONV8Wu4RwaBwKk7a+ZiqzuSkSJyx1Noc3SpBhM/NGewrEwAQOfTkfb0ZrHf9oPNQiD1lNsYA/62LM9CBGe3VbKwFP+DQ5iJHKwBfj9YYbGZUhzPXeYRTX1pAuYpRahWMYZ8brtIjK3lYQsq2YFlTWLjpy8BAEvHbrmsCOoht5F0AAA"
+    },
+    "render": {
+      "src": "/work/casa-madera-render.webp",
+      "width": 1792,
+      "height": 2400,
+      "blurDataURL": "data:image/webp;base64,UklGRh4BAABXRUJQVlA4IBIBAACQBgCdASoYACAAPt1gp0yopaOiMAgBEBuJYgC7B3gd4HYCui2+6spXmWemd/frnLUfCNMR3sWLKTMSrEqAAP6Dr39C1ebqxS2lsAX9OaoER5nOM2Wtq8ZipKrjUxd7yvwITaPouMO3D0vdJ9+o9fgN4wKc0hAl4VYRsaXPorjaSHS2pCRncO83wb5WlfVEqAoS2uXo17c+XCp0pAHXpWenu3AFerO2WA+SryZM3BqxJggDgzHQwR1I8FLm+7uOeg8IQNh6FxKIau9tSRQDEADHftoZrhFqdsTYU3NCiFn6c1+fOnJzUh4/cvgm3xnhM3pgsAAPYsH0wauWu2++GpwuPrdlxBGz5Dcnvw7TVGy5g0AA"
+    }
+  },
+  {
+    "slug": "diseno-interior",
+    "model": {
+      "src": "/work/diseno-interior-model.webp",
+      "width": 1376,
+      "height": 768,
+      "blurDataURL": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAADwAwCdASoYAA0APt1apkyopSOiMAgBEBuJQBOgZYAro+SLVCzm97QAAPOHDc3kC1uxA67mU6tqz5Gtgxo9foyFftIyezH+rPeti0aNCgnY1795ZnYMV5I8G5j+qhO8GD8UcjzI8VGaWjZNa9itoasYUYXEgAAA"
+    },
+    "render": {
+      "src": "/work/diseno-interior-render.webp",
+      "width": 2000,
+      "height": 1116,
+      "blurDataURL": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAABQBACdASoYAA0APt1cpkyopSOiMAgBEBuJZgCdMoRwACaToROjIyo9828AAPp4GPnQwDAl9Liz+YBfz8qcx5gV9RF6FbCR36SBNP+WrdVHX1S6vLJ3Df2XcNpYzmTAwnkHIf//1/LT3L71dx5MmuGsfptgLd+ec8GDhE2XrPyaS76aAWX/1+2HqKIfNfJHTxJh56deo2ebO2VhnbgXAAAA"
+    }
+  },
+  {
+    "slug": "hotel-biofilico",
+    "model": {
+      "src": "/work/hotel-biofilico-model.webp",
+      "width": 1792,
+      "height": 2400,
+      "blurDataURL": "data:image/webp;base64,UklGRu4AAABXRUJQVlA4IOIAAAAwBgCdASoYACAAPt1ep04opSMiMBgIARAbiWMApIQIEeB7ohqMhV+gc08xjKzwnZrF/z+CKVC++4OQAP0fLcswBu/ffvti5bcBGV7r8/F871ODEMmfPbyVpZEZc/l/d09duC+IypqX0cqzRzfYaOBcT26fk0BDvrJkt2yVSunmNA2TtYVNeQjzFlDm1IIzSjIYEcM7u1VjKw9ckii6OfKGRgI/ixHpxowzeIlK4u19IaLeiC4xcBqvNG1xCiZwDdRh7OpnW9N+aviwNIJbP4jHHiBMfJDrpEa1ZFJtBQlbcvAA"
+    },
+    "render": {
+      "src": "/work/hotel-biofilico-render.webp",
+      "width": 1792,
+      "height": 2400,
+      "blurDataURL": "data:image/webp;base64,UklGRiABAABXRUJQVlA4IBQBAABQBgCdASoYACAAPt1kpk2opaMiMBgIARAbiWMArDNy6QTMbvOL6mD6pkv75oDxaftkaX5HmOh37vg8QAD+6O97W9/65XEEr5XH6uOUyxOgzWzxjjK6B13M5Wpcw+hnMUUAl/ozZPjFarXAoeisF+mhSJukI2wp2G1onAP4tUUjL5zDp+PpS03rYtmBlzvRZnbYW3oAESJzVuEebwVYTWc4B+ii9+0Cn8RMX5d6kZBbO4WFbPddMCBfa/XQ7gSLqVNQbuhhqrsyMJ5Y5keFUIXQ0izitIZ3iXG7Ynakp8FvE2Yp8Bek81q6pAe4y28wA7R3hedk7BlKf/EHdldi9UnQJNSrNQd5A0INbhl9kmzp1FAIAAA="
+    }
+  },
+  {
+    "slug": "oficinas-modernas",
+    "model": {
+      "src": "/work/oficinas-modernas-model.webp",
+      "width": 2000,
+      "height": 1116,
+      "blurDataURL": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAABwAwCdASoYAA0APt1ap0yopSOiMAgBEBuJZQCdAA2ekqglSQAA9vONechnY+jI82rZUY7VsitO82BfXcqetu+EgKzr5afcbM36IgCKemMCHD+aaCtiZX/zBS8qWMMHh0QZqQInwQcPbDyGBm9yEnr5ZR34S62uibZ3ASQAAAA="
+    },
+    "render": {
+      "src": "/work/oficinas-modernas-render.webp",
+      "width": 2000,
+      "height": 1116,
+      "blurDataURL": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAAAwBACdASoYAA0APt1cpkyopSOiMAgBEBuJQBYdtOkPCFfyHjE31LhII4AAybECgG//rxn0+PYubJFSmG8PzfUEZiPP/c4URF9JCLoImaaPCvtWU+ru/g1OGoDKuOt1C15uqYnT/L+zAJamxe/svmsDBWm+VKalj3bd+2YINoC+MD1ZDAAAAA=="
+    }
+  },
+  {
+    "slug": "oficinas-neo-industrial",
+    "model": {
+      "src": "/work/oficinas-neo-industrial-model.webp",
+      "width": 2000,
+      "height": 1116,
+      "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAAAQBACdASoYAA0APt1apkyopSOiMAgBEBuJZQCdACHKT3Jn3nGho2qqAAD+43siV90ZrM8eS0fCr6eKBTWxn9HHA7HI0IlboFxucoEL2kZLQIhukiPmZ1QrO5ouUQAw2cCONwMY/zIWSenVnrtez4+KgAA="
+    },
+    "render": {
+      "src": "/work/oficinas-neo-industrial-render.webp",
+      "width": 2000,
+      "height": 1116,
+      "blurDataURL": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAABQBACdASoYAA0APt1cpkyopSOiMAgBEBuJYwCdMoADVS+neu49ra6VjbNMAP7urO2yWx42PWoDj7d/DoTlKf2mGOx6OEpAQM6S86oQm8D7swGpyvLeozZGJ0cbU0SeqPQqLTK1RlsKklWLfNlyCLw809/rc5KhPfBwQvT26iV3sP1nBD3UiaB2E9k8AA=="
+    }
+  },
+  {
+    "slug": "spa-bali",
+    "model": {
+      "src": "/work/spa-bali-model.webp",
+      "width": 2000,
+      "height": 1493,
+      "blurDataURL": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAABwBQCdASoYABIAPt1kqE+opSOiKAqpEBuJYwCdMoABHf3StL8bQY79VeQYoOiBy8sM5ZeAAPa3rC5WDqEE3Yhi1WHiJp6Z8mhJ2prKXds/BLBdjF3VG73JcagvsvlO4NlEvXVJTA76JIscJ9SnjFP+Ui6hoECrMKqtcWTkX37/PaIRnoQwHSLuLEp0RikJ+ojXRmxl8LIvhdRWk0ma+Po0dVWMAAAA"
+    },
+    "render": {
+      "src": "/work/spa-bali-render.webp",
+      "width": 2000,
+      "height": 1493,
+      "blurDataURL": "data:image/webp;base64,UklGRuYAAABXRUJQVlA4INoAAACwBQCdASoYABIAPt1mq1CopSOiqAgBEBuJQBYj5oa6V/HGAGJWEjY5d3QKGLKBJIlsbSXD+AAA/CG3BBTv1rulrK/N4W6VnIUGwUnB3lIjBzOfyykv35zmsUEMn7KEveK6n4w4GDORxxc9SBfWv4eqvN2DpKBNGr/4uVALqyuMZ1cJclISLSfGCHUjE6bR8+rJXMfAJdDNJf9hp9mgYwmHMDLgCW66RrSgvRnp4mvrV4sGArjraQW09kLT5cmclhJ6gY+LiGo1VymHbl+q5zEU+Jk1O5s3xQAAAA=="
+    }
+  },
+  {
+    "slug": "tienda-de-ropa-neo-industrial",
+    "model": {
+      "src": "/work/tienda-de-ropa-neo-industrial-model.webp",
+      "width": 2000,
+      "height": 2000,
+      "blurDataURL": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4IM4AAAAQBACdASoYABgAPt1ipk8opaMiKA1REBuJQAABYV5Lh6YvsGgY0jHMgAD+JmThW3qBvfFlqvyMdmfGmZrRspVEO398k6wHFAWRN3OPO62GBKtEZvW7+qpicS046R9jcUlKFmiJHd007sOE8UWM4LJq2NuCQ15JZDNYm4+k/22ETKH37USfupkujf7IfrSZRk53Wj0GjvwMAoXC5DK2LT7hEYsCynbqYsNQAvcmcyQnSn7q8gBn8ZullcsBNoNdHVNI2fFKZJdmH3wUsJgAAA=="
+    },
+    "render": {
+      "src": "/work/tienda-de-ropa-neo-industrial-render.webp",
+      "width": 2000,
+      "height": 2000,
+      "blurDataURL": "data:image/webp;base64,UklGRv4AAABXRUJQVlA4IPIAAADQBQCdASoYABgAPt1mqU+opaOiKAqpEBuJQBYj5DS6QVOaZyzUcaCUPbdpPqi89JeLGjyiYmUAAP55FoW4dLT6PAdSz1BhiPEwKu4eCfS++LAZvnE4Hm81QRgHwe0sUkkdanZckw3xPW5pV0HW8eZtm8ZCWo8mFhk3XxFCjLrmn+VkvmWiZpioGVILzbLgmWdCB1zAl5gDEBrEafo4lhYTlkFWVgkf7tw3TZG2wDW+3DB1BReo8g5kWhQvyL21KLktrIDpks5iv2/JnJ/2wpL55tgVuTCljXGUVvW9sTU1N6RiMwkRiWWMed1JoxtphX7MAA=="
+    }
+  },
+  {
+    "slug": "villa-luxury-frente-al-mar",
+    "model": {
+      "src": "/work/villa-luxury-frente-al-mar-model.webp",
+      "width": 2000,
+      "height": 1116,
+      "blurDataURL": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBACdASoYAA0APt1ap0yopSOiMAgBEBuJQBbZBD1qDXr0qwZHQaf7+AD+6nWU3EYARRlMMLR1BVdtBB8uocv+XBKWrE6k5vgzBigkPqsEM+eucD/r51tmlB6QVNLQ4362/noRKB+g1pk/kScpoEKfIrsgDAAA"
+    },
+    "render": {
+      "src": "/work/villa-luxury-frente-al-mar-render.webp",
+      "width": 2000,
+      "height": 1116,
+      "blurDataURL": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAAAQBACdASoYAA0APt1cp00opSOiMAgBEBuJagCdGaAAYShZGOL+U4xJ8AD+W32P8IQK0RyIo1eubkvpV37jmmVCLwOiaLekA7wAzZaXxbP6L6Broh/5MfWZzTSNOscrEABWLyd0Iifn5iKJnQSeBtN3np3VrJTl0+qTQD8pVSifBD2Vd+zB/h/Qt8YwQbyPF/B5YwrLAcD0Kz+maAA="
+    }
+  },
+  {
+    "slug": "vista-trasera-casa-luxury",
+    "model": {
+      "src": "/work/vista-trasera-casa-luxury-model.webp",
+      "width": 2000,
+      "height": 1115,
+      "blurDataURL": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAADwAwCdASoYAA0APt1cpkyopSOiMAgBEBuJQBdmUABmU01CnXi0HugoAPjHjjVpULgYkoXGcJ4wRWkxxrX2TgcBNDA0JufCI5tdK0JNcot2EzyWrB2G10YZTkHcCEkLSh9/nHkLybceUXefOREyI5RkYcK4A2Goe53XtB84QjEq2vOmB59+bDPQgmri9rIho5f3UWQA"
+    },
+    "render": {
+      "src": "/work/vista-trasera-casa-luxury-render.webp",
+      "width": 2000,
+      "height": 1115,
+      "blurDataURL": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4IKQAAADwAwCdASoYAA0APt1cpkyopSOiMAgBEBuJZACdIAIC4G0jk54Y6K0AAP2Yv7qJuufowUMKrR7vP4Dusz2cJZqA9U2ZDfBIB2af9BOj/4QOi90WphaOcyOLj1434KnUI2Dh+4E6g1BO93j0anqWh/wi343Yxbm121zYJ/ZYZda7A8f5QWPyxpFHxCMMzynIZC6aFzV5ckiU5JDipGs4IxJUHcAAAA=="
+    }
+  }
+]

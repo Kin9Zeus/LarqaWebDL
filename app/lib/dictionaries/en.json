@@ -1,0 +1,221 @@
+{
+  "meta": {
+    "title": "LARQA · AI-Powered Architecture | Laura Martínez",
+    "description": "Photorealistic renders in minutes, not weeks. Laura Martínez leads complete architecture projects, from the first line to final delivery.",
+    "ogAlt": "LARQA Architecture — from 3D model to photorealistic render"
+  },
+  "nav": {
+    "method": "Method",
+    "work": "Work",
+    "services": "Services",
+    "process": "Process",
+    "about": "Architect",
+    "contact": "Contact",
+    "cta": "Start a project",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "switchTo": "Español",
+    "skipToContent": "Skip to content"
+  },
+  "hero": {
+    "eyebrow": "Architecture + Artificial Intelligence",
+    "titleLead": "An architect's eye.",
+    "titleAccent": "The speed of AI.",
+    "subtitle": "Photorealistic renders in minutes, not weeks. And complete projects carried from the first line all the way to delivery.",
+    "ctaPrimary": "See the transformation",
+    "ctaSecondary": "Start a project",
+    "scrollHint": "Scroll",
+    "videoAlt": "The architectural process: from drawing to 3D model, from render to built work"
+  },
+  "method": {
+    "eyebrow": "The method",
+    "title": "From model to photorealism.",
+    "body": "Every image starts where architecture has always started: in the model. AI doesn't replace that work, it lights it. Drag to see the same frame in both states.",
+    "labelModel": "3D model",
+    "labelRender": "Final render",
+    "dragHint": "Drag to compare",
+    "keyboardHint": "Use arrow keys to compare",
+    "sliderLabel": "Comparison between 3D model and final render",
+    "traditionalLabel": "Traditional workflow",
+    "traditionalValue": "5–7 days",
+    "larqaLabel": "With LARQA",
+    "larqaValue": "Minutes",
+    "perImage": "per image"
+  },
+  "speed": {
+    "eyebrow": "Why it matters",
+    "marquee": "Minutes, not weeks",
+    "title": "Iterating stops costing a week.",
+    "body": "Architecture's bottleneck was never the design — it was waiting on the image. When every version takes minutes, you can see the façade in five materials before lunch and decide with the image in front of you instead of in your head.",
+    "cards": [
+      {
+        "label": "Time per image",
+        "before": "5–7 days",
+        "after": "Minutes",
+        "note": "The render stops being a milestone on the schedule and becomes part of the conversation."
+      },
+      {
+        "label": "Iterations per project",
+        "before": "One or two",
+        "after": "As many as it takes",
+        "note": "Trying an alternative no longer means renegotiating the delivery date."
+      },
+      {
+        "label": "When you decide",
+        "before": "At the end",
+        "after": "From day one",
+        "note": "Clients approve by seeing the finished space, not by interpreting a floor plan."
+      }
+    ]
+  },
+  "work": {
+    "eyebrow": "Work",
+    "title": "Nine frames. Two states each.",
+    "body": "Every pair shows the same model before and after the render. Tap any of them to compare full screen.",
+    "viewLabel": "Compare",
+    "closeLabel": "Close",
+    "prevLabel": "Previous",
+    "nextLabel": "Next",
+    "counterSeparator": "of",
+    "projects": {
+      "villa-luxury-frente-al-mar": { "title": "Oceanfront Villa", "typology": "Luxury residential" },
+      "vista-trasera-casa-luxury": { "title": "Luxury House · Rear View", "typology": "Luxury residential" },
+      "hotel-biofilico": { "title": "Biophilic Hotel", "typology": "Hospitality" },
+      "spa-bali": { "title": "Bali Spa", "typology": "Wellness" },
+      "casa-madera": { "title": "Timber House", "typology": "Residential" },
+      "oficinas-modernas": { "title": "Modern Offices", "typology": "Workplace" },
+      "oficinas-neo-industrial": { "title": "Neo-Industrial Offices", "typology": "Workplace" },
+      "tienda-de-ropa-neo-industrial": { "title": "Neo-Industrial Retail", "typology": "Retail" },
+      "diseno-interior": { "title": "Residential Interior", "typology": "Interior design" }
+    }
+  },
+  "services": {
+    "eyebrow": "Services",
+    "title": "From the first line to the last delivery.",
+    "body": "The render is the way in, not the destination. LARQA covers the complete project — and can also step in at just the stage you need.",
+    "items": [
+      {
+        "title": "AI visualization",
+        "description": "Photorealistic exterior, interior and detail renders, produced in minutes and directed by architectural judgement."
+      },
+      {
+        "title": "3D modeling",
+        "description": "Building the model from drawings, sketches or references. The foundation every image rests on."
+      },
+      {
+        "title": "Architectural design",
+        "description": "The complete project: brief, massing, layout and technical resolution. From idea to buildable drawing."
+      },
+      {
+        "title": "Interior design",
+        "description": "Materials, lighting and furniture defined as one coherent system, not as a collection of pieces."
+      },
+      {
+        "title": "Technical documentation",
+        "description": "Plans, sections, elevations and specifications ready for permitting and for site."
+      },
+      {
+        "title": "Project direction",
+        "description": "Support from start to finish so that what gets built is exactly what was designed."
+      }
+    ]
+  },
+  "process": {
+    "eyebrow": "How we work",
+    "title": "Four steps. No surprises.",
+    "steps": [
+      {
+        "title": "Brief",
+        "description": "We define the brief, references and scope. You leave this stage knowing exactly what you'll receive and when."
+      },
+      {
+        "title": "Model",
+        "description": "We build the massing in 3D from your drawings or from a new design. This is where the architecture gets decided."
+      },
+      {
+        "title": "Render",
+        "description": "AI produces the image in minutes. We review framing, light and materiality, and adjust until it's the right image."
+      },
+      {
+        "title": "Delivery",
+        "description": "You get high-resolution files, ready for sales, permitting or publication. And if the project continues, so do we."
+      }
+    ]
+  },
+  "about": {
+    "eyebrow": "The architect",
+    "name": "Laura Martínez",
+    "role": "Founder and project director, LARQA",
+    "lead": "AI generates images. Deciding which of them is architecture is still an architect's job.",
+    "body1": "Laura runs LARQA on a simple conviction: the tool doesn't replace judgement. A render is only useful if the light falls where it should, if the material behaves the way it would on site, and if the plan behind the image actually works.",
+    "body2": "That's why every project starts in the model, not in the prompt. Speed comes from the technology, but the decisions — the framing, the proportion, the detail that makes a space feel livable — come from the craft.",
+    "quote": "AI gave me back the time I used to spend waiting. Now that time goes into the project."
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Tell me what you want to build.",
+    "body": "I answer every request personally. Drawings, references, or just an idea — any of those is enough to start.",
+    "directLabel": "Or reach me directly",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "instagram": "Instagram",
+    "responseTime": "Usually answered within 24 hours.",
+    "form": {
+      "firstName": "First name",
+      "firstNamePlaceholder": "Your first name",
+      "lastName": "Last name",
+      "lastNamePlaceholder": "Your last name",
+      "email": "Email",
+      "emailPlaceholder": "you@email.com",
+      "phone": "WhatsApp",
+      "phonePlaceholder": "555 123 4567",
+      "countryCode": "Country code",
+      "service": "What do you need?",
+      "serviceOptions": [
+        "AI renders",
+        "3D modeling",
+        "Complete architecture project",
+        "Interior design",
+        "Technical documentation",
+        "Not sure yet"
+      ],
+      "preference": "Best way to reach you",
+      "preferenceEmail": "Email",
+      "preferenceWhatsapp": "WhatsApp",
+      "preferenceBoth": "Either one",
+      "message": "Tell me about the project",
+      "messagePlaceholder": "Type of space, square meters, whether you already have drawings, when you need it…",
+      "submit": "Send request",
+      "submitting": "Sending…",
+      "successTitle": "Request received.",
+      "successBody": "Thank you. I'll read your message and reply personally within 24 hours.",
+      "successAgain": "Send another request",
+      "errorGeneric": "The message couldn't be sent. Try again, or reach me on WhatsApp.",
+      "errorRequired": "Please complete this field.",
+      "errorEmail": "Check the email format."
+    }
+  },
+  "footer": {
+    "tagline": "Architecture + Artificial Intelligence",
+    "navTitle": "Navigation",
+    "contactTitle": "Contact",
+    "followTitle": "Follow",
+    "rights": "All rights reserved.",
+    "credit": "Site designed and developed for LARQA."
+  },
+  "notFound": {
+    "code": "404",
+    "eyebrow": "Drawing not found",
+    "title": "This page doesn't exist.",
+    "body": "The link you followed doesn't lead anywhere. The page may have moved, or the address may have a typo.",
+    "cta": "Back to home",
+    "ctaSecondary": "Write to LARQA"
+  },
+  "common": {
+    "loading": "Loading",
+    "backToTop": "Back to top",
+    "soundOn": "Turn on ambient sound",
+    "soundOff": "Mute ambient sound",
+    "whatsappMessage": "Hi Laura, I saw the LARQA website and I'd like to talk about a project."
+  }
+}
