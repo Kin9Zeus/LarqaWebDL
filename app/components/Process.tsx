@@ -1,66 +1,58 @@
-'use client';
-import { motion } from 'framer-motion';
-import { Pencil, Ruler, Hammer, Key } from 'lucide-react';
+import Reveal, { RevealWords } from './Reveal';
+import { sectionIds } from '../lib/site';
+import type { Dictionary } from '../lib/i18n';
 
-const steps = [
-  {
-    id: 1,
-    icon: Pencil,
-    title: "Concepto",
-    description: "Escuchamos tu visión y trazamos las primeras líneas. Definimos la esencia del proyecto."
-  },
-  {
-    id: 2,
-    icon: Ruler,
-    title: "Desarrollo",
-    description: "Convertimos ideas en planos técnicos precisos. Cada detalle es calculado y especificado."
-  },
-  {
-    id: 3,
-    icon: Hammer,
-    title: "Ejecución",
-    description: "Supervisamos la obra para asegurar que la realidad supere a la visualización."
-  },
-  {
-    id: 4,
-    icon: Key,
-    title: "Entrega",
-    description: "Te entregamos no solo un espacio, sino un nuevo escenario para tu vida."
-  }
-];
-
-export default function Process() {
+/**
+ * Numbered, because the order genuinely carries information: you cannot render
+ * before there is a model, and the model follows the brief.
+ */
+export default function Process({ dict }: { dict: Dictionary }) {
   return (
-    <section className="py-24 px-6 bg-beige-100">
-      <div className="container mx-auto max-w-7xl">
-        <div className="text-center mb-20">
-          <span className="text-sm uppercase tracking-widest text-beige-900 mb-4 block">Metodología</span>
-          <h2 className="text-4xl md:text-5xl font-serif text-black-rich">Nuestro Proceso</h2>
-        </div>
+    <section
+      id={sectionIds.process}
+      className="relative border-t border-ink-line bg-ink py-24 md:py-36"
+    >
+      <div className="mx-auto max-w-[1600px] px-6 md:px-10">
+        <Reveal>
+          <p className="eyebrow mb-8">{dict.process.eyebrow}</p>
+        </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-          {/* Connecting Line (Desktop) */}
-          <div className="hidden md:block absolute top-12 left-0 w-full h-px bg-beige-300 z-0"></div>
+        <h2 className="display max-w-[14ch] text-display-lg">
+          <RevealWords text={dict.process.title} />
+        </h2>
 
-          {steps.map((step, index) => (
-            <motion.div 
-              key={step.id}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-30px" }}
-              transition={{ delay: index * 0.08, duration: 0.4 }}
-              className="relative z-10 flex flex-col items-center text-center group"
-            >
-              <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center border border-beige-200 mb-8 shadow-sm group-hover:scale-110 transition-transform duration-300 group-hover:border-black-rich">
-                <step.icon size={32} className="text-black-rich stroke-1" />
-              </div>
-              <h3 className="text-2xl font-serif text-black-rich mb-4">{step.title}</h3>
-              <p className="text-black-soft font-light text-sm leading-relaxed px-4">
-                {step.description}
-              </p>
-            </motion.div>
+        <ol className="mt-16 grid gap-x-10 gap-y-14 md:mt-24 md:grid-cols-2 lg:grid-cols-4">
+          {dict.process.steps.map((step, i) => (
+            <li key={step.title}>
+              <Reveal delay={i * 0.1}>
+                <div className="relative">
+                  {/* The rail that links the steps on wide screens. */}
+                  <span
+                    className="absolute left-0 top-[0.6rem] hidden h-px w-full bg-ink-line lg:block"
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="absolute left-0 top-[0.6rem] hidden h-px w-8 bg-render lg:block"
+                    aria-hidden="true"
+                  />
+
+                  <div className="relative flex items-baseline gap-4 pt-8 lg:pt-10">
+                    <span className="mono-label text-render">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <h3 className="display text-[1.875rem] leading-tight text-bone">
+                      {step.title}
+                    </h3>
+                  </div>
+
+                  <p className="mt-5 max-w-xs text-sm leading-relaxed text-bone/60">
+                    {step.description}
+                  </p>
+                </div>
+              </Reveal>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

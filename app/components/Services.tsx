@@ -1,141 +1,53 @@
-'use client';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import Image from 'next/image';
+import Reveal, { RevealRule, RevealWords } from './Reveal';
+import { sectionIds } from '../lib/site';
+import type { Dictionary } from '../lib/i18n';
 
-const services = [
-  {
-    id: 1,
-    title: "Diseño Arquitectónico",
-    description: "Creación de espacios únicos que fusionan funcionalidad y estética. Desde residencias privadas hasta complejos comerciales, nos enfocamos en una arquitectura que respira.",
-    image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1200&auto=format&fit=crop"
-  },
-  {
-    id: 2,
-    title: "Interiorismo",
-    description: "Transformamos ambientes interiores para reflejar la esencia de quienes los habitan. Selección de materiales, iluminación y mobiliario con un enfoque minimalista.",
-    image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1200&auto=format&fit=crop"
-  },
-  {
-    id: 3,                                        
-    title: "Consultoría y Gestión",
-    description: "Acompañamiento integral durante todo el proceso constructivo. Aseguramos que el diseño se ejecute fielmente, cuidando el presupuesto y los tiempos.",
-    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop"
-  },
-  {
-    id: 4,
-    title: "Paisajismo",
-    description: "Integración de la arquitectura con el entorno natural. Diseñamos jardines y espacios exteriores que promueven la serenidad y la conexión con la naturaleza.",
-    image: "https://images.unsplash.com/photo-1558904541-efa843a96f01?q=80&w=1200&auto=format&fit=crop"
-  }
-];
-
-export default function Services() {
-  const [hoveredService, setHoveredService] = useState<number | null>(null);
-
+/**
+ * Deliberately un-numbered: these are parallel offerings, not a sequence.
+ * (The process section directly below *is* a sequence, and is numbered.)
+ */
+export default function Services({ dict }: { dict: Dictionary }) {
   return (
-    <section className="py-32 px-6 min-h-screen bg-mesh relative">
-      <div className="container mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-12">
-        
-        {/* Left Column: Title & Image Reveal */}
-        <div className="lg:col-span-5 relative hidden lg:block h-[60vh] sticky top-32">
-          <div className="relative w-full h-full overflow-hidden rounded-sm bg-beige-100">
-             {services.map((service) => (
-                <motion.div
-                    key={service.id}
-                    className="absolute inset-0 w-full h-full"
-                    initial={{ opacity: 0, scale: 1.1 }}
-                    animate={{ 
-                        opacity: hoveredService === service.id ? 1 : 0,
-                        scale: hoveredService === service.id ? 1 : 1.1
-                    }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                >
-                    <Image 
-                        src={service.image} 
-                        alt={service.title}
-                        fill
-                        sizes="(max-width: 1024px) 0px, 40vw"
-                        className="object-cover opacity-90"
-                    />
-                    <div className="absolute inset-0 bg-black/10 mix-blend-multiply"></div>
-                </motion.div>
-             ))}
-             {/* Default Image or Placeholder when nothing hovered */}
-             <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${hoveredService ? 'opacity-0' : 'opacity-100'}`}>
-                <div className="relative w-48 h-24 opacity-20">
-                    <Image
-                        src="/logo.png"
-                        alt="Larqa Logo"
-                        fill
-                        className="object-contain"
-                    />
+    <section
+      id={sectionIds.services}
+      className="border-t border-ink-line bg-ink py-24 md:py-36"
+    >
+      <div className="mx-auto max-w-[1600px] px-6 md:px-10">
+        <Reveal>
+          <p className="eyebrow mb-8">{dict.services.eyebrow}</p>
+        </Reveal>
+
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+          <h2 className="display text-display-lg lg:col-span-7">
+            <RevealWords text={dict.services.title} />
+          </h2>
+          <Reveal delay={0.15} className="lg:col-span-5 lg:pt-3">
+            <p className="max-w-md text-base leading-relaxed text-bone/70">
+              {dict.services.body}
+            </p>
+          </Reveal>
+        </div>
+
+        <RevealRule className="my-12 md:my-16" />
+
+        <ul className="grid gap-px overflow-hidden border border-ink-line bg-ink-line sm:grid-cols-2 lg:grid-cols-3">
+          {dict.services.items.map((item, i) => (
+            <li key={item.title} className="group relative bg-ink">
+              <Reveal delay={(i % 3) * 0.08} className="h-full">
+                <div className="relative flex h-full flex-col px-7 py-10 transition-colors duration-500 group-hover:bg-ink-raised md:px-9 md:py-12">
+                  <span
+                    className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-render transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
+                    aria-hidden="true"
+                  />
+                  <h3 className="display text-[1.75rem] leading-tight text-bone">{item.title}</h3>
+                  <p className="mt-5 text-sm leading-relaxed text-bone/60 transition-colors duration-500 group-hover:text-bone/80">
+                    {item.description}
+                  </p>
                 </div>
-             </div>
-          </div>
-        </div>
-
-        {/* Right Column: Editorial List */}
-        <div className="lg:col-span-7 flex flex-col justify-center">
-            <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="mb-16"
-            >
-                <span className="text-sm uppercase tracking-widest text-beige-900 mb-4 block">Lo que hacemos</span>
-                <h1 className="text-5xl md:text-7xl font-serif text-black-rich mb-8">Nuestros Servicios</h1>
-                <p className="text-lg font-light text-black-soft max-w-lg leading-relaxed">
-                    Soluciones integrales donde cada línea tiene un propósito y cada material cuenta una historia.
-                </p>
-            </motion.div>
-
-            <div className="flex flex-col">
-                {services.map((service, index) => (
-                    <motion.div
-                        key={service.id}
-                        initial={{ opacity: 0, y: 12 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-30px" }}
-                        transition={{ delay: index * 0.05, duration: 0.4 }}
-                        onMouseEnter={() => setHoveredService(service.id)}
-                        onMouseLeave={() => setHoveredService(null)}
-                        className="group border-t border-black-rich/10 py-12 cursor-hover transition-colors duration-500 hover:bg-white/40"
-                    >
-                        <div className="flex flex-col md:flex-row md:items-baseline justify-between mb-4">
-                            <h3 className="text-3xl md:text-4xl font-serif text-black-rich group-hover:translate-x-4 transition-transform duration-500 ease-out">
-                                {service.title}
-                            </h3>
-                            <span className="text-xs font-mono text-gray-400 mt-2 md:mt-0">0{service.id}</span>
-                        </div>
-
-                        {/* Mobile Image */}
-                        <div className="relative w-full h-64 mb-6 overflow-hidden rounded-sm lg:hidden">
-                             <motion.div 
-                                className="relative w-full h-full"
-                                initial={{ scale: 1.1, opacity: 0 }}
-                                whileInView={{ scale: 1, opacity: 1 }}
-                                transition={{ duration: 0.8, ease: "easeOut" }}
-                                viewport={{ once: false, amount: 0.3 }}
-                             >
-                                <Image
-                                    src={service.image}
-                                    alt={service.title}
-                                    fill
-                                    sizes="100vw"
-                                    className="object-cover"
-                                />
-                             </motion.div>
-                        </div>
-
-                        <p className="text-black-soft font-light leading-relaxed max-w-xl group-hover:translate-x-4 transition-transform duration-500 ease-out delay-75 opacity-70 group-hover:opacity-100">
-                            {service.description}
-                        </p>
-                    </motion.div>
-                ))}
-                <div className="border-t border-black-rich/10"></div>
-            </div>
-        </div>
+              </Reveal>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

@@ -1,325 +1,386 @@
 'use client';
+
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, Loader2 } from 'lucide-react';
+import { Check, Loader2, ArrowUpRight } from 'lucide-react';
+import Reveal, { RevealWords } from './Reveal';
+import { sectionIds, site, whatsappLink } from '../lib/site';
+import type { Dictionary, Locale } from '../lib/i18n';
 
-export default function Contact() {
-  const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [formData, setFormData] = useState({
+const COUNTRY_CODES = [
+  { code: '+57', flag: '🇨🇴' },
+  { code: '+1', flag: '🇺🇸' },
+  { code: '+52', flag: '🇲🇽' },
+  { code: '+34', flag: '🇪🇸' },
+  { code: '+44', flag: '🇬🇧' },
+  { code: '+971', flag: '🇦🇪' },
+  { code: '+54', flag: '🇦🇷' },
+  { code: '+56', flag: '🇨🇱' },
+  { code: '+51', flag: '🇵🇪' },
+  { code: '+593', flag: '🇪🇨' },
+  { code: '+58', flag: '🇻🇪' },
+  { code: '+507', flag: '🇵🇦' },
+  { code: '+506', flag: '🇨🇷' },
+  { code: '+55', flag: '🇧🇷' },
+  { code: '+33', flag: '🇫🇷' },
+  { code: '+39', flag: '🇮🇹' },
+  { code: '+49', flag: '🇩🇪' },
+  { code: '+61', flag: '🇦🇺' },
+];
+
+type FormState = 'idle' | 'loading' | 'success' | 'error';
+
+const FIELD =
+  'w-full border-b border-ink-line bg-transparent py-3 text-bone placeholder:text-bone-faint transition-colors duration-300 focus:border-render focus:outline-none';
+
+export default function Contact({ dict, locale }: { dict: Dictionary; locale: Locale }) {
+  const f = dict.contact.form;
+  const [state, setState] = useState<FormState>('idle');
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const initial = {
     nombre: '',
     apellido: '',
     email: '',
     countryCode: '+57',
     whatsapp: '',
-    service: 'Diseño Arquitectónico',
+    service: f.serviceOptions[0],
     preference: 'email',
-    message: ''
-  });
+    message: '',
+  };
+  const [data, setData] = useState(initial);
 
-  const countryCodes = [
-    { code: '+57', country: 'Colombia', flag: '🇨🇴' },
-    { code: '+52', country: 'México', flag: '🇲🇽' },
-    { code: '+1', country: 'USA/Canadá', flag: '🇺🇸' },
-    { code: '+34', country: 'España', flag: '🇪🇸' },
-    { code: '+54', country: 'Argentina', flag: '🇦🇷' },
-    { code: '+56', country: 'Chile', flag: '🇨🇱' },
-    { code: '+51', country: 'Perú', flag: '🇵🇪' },
-    { code: '+593', country: 'Ecuador', flag: '🇪🇨' },
-    { code: '+58', country: 'Venezuela', flag: '🇻🇪' },
-    { code: '+507', country: 'Panamá', flag: '🇵🇦' },
-    { code: '+506', country: 'Costa Rica', flag: '🇨🇷' },
-    { code: '+503', country: 'El Salvador', flag: '🇸🇻' },
-    { code: '+502', country: 'Guatemala', flag: '🇬🇹' },
-    { code: '+504', country: 'Honduras', flag: '🇭🇳' },
-    { code: '+591', country: 'Bolivia', flag: '🇧🇴' },
-    { code: '+598', country: 'Uruguay', flag: '🇺🇾' },
-    { code: '+595', country: 'Paraguay', flag: '🇵🇾' },
-    { code: '+1-809', country: 'Rep. Dominicana', flag: '🇩🇴' },
-    { code: '+other', country: 'Otro', flag: '🌍' },
-  ];
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const set = (name: string, value: string) => {
+    setData((d) => ({ ...d, [name]: value }));
+    setErrors((e) => (e[name] ? { ...e, [name]: '' } : e));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const validate = () => {
+    const next: Record<string, string> = {};
+    for (const key of ['nombre', 'apellido', 'email', 'whatsapp', 'message'] as const) {
+      if (!data[key].trim()) next[key] = f.errorRequired;
+    }
+    if (data.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email)) {
+      next.email = f.errorEmail;
+    }
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
+
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormState('loading');
-    
+    if (!validate()) return;
+    setState('loading');
+
     try {
-      const submissionData = {
-        ...formData,
-        whatsapp: `${formData.countryCode} ${formData.whatsapp}`
-      };
-
-      const response = await fetch('/api/contact', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(submissionData),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          whatsapp: `${data.countryCode} ${data.whatsapp}`,
+          locale,
+        }),
       });
-
-      if (response.ok) {
-        setFormState('success');
-        setFormData({
-            nombre: '',
-            apellido: '',
-            email: '',
-            countryCode: '+57',
-            whatsapp: '',
-            service: 'Diseño Arquitectónico',
-            preference: 'email',
-            message: ''
-        });
-      } else {
-        setFormState('error');
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setFormState('error');
+      if (!res.ok) throw new Error(String(res.status));
+      setState('success');
+      setData(initial);
+    } catch {
+      setState('error');
     }
   };
 
-  return (
-    <section id="contacto" className="py-24 px-6 bg-white relative overflow-hidden">
-      <div className="container mx-auto max-w-6xl grid md:grid-cols-2 gap-16 items-start">
-        
-        {/* Info */}
-        <div className="relative z-10">
-          <span className="text-sm uppercase tracking-widest text-beige-900 mb-4 block">Contacto</span>
-          <h2 className="text-4xl md:text-6xl font-serif text-black-rich mb-8">Iniciemos tu <br/> Próximo Proyecto</h2>
-          <p className="text-black-soft mb-12 text-lg font-light leading-relaxed">
-            ¿Listo para transformar tu visión en realidad? Contáctanos para una consulta inicial o solicita un presupuesto detallado. Nos especializamos en crear espacios que transmiten serenidad y vitalidad.
-          </p>
-          
-          <div className="space-y-6 text-black-rich font-light">
-            <div className="cursor-hover inline-block">
-              <h4 className="text-sm uppercase tracking-widest mb-1 font-bold">Email</h4>
-              <p>larqa.arquitectura@gmail.com</p>
-            </div>
-            <br />
-            <div className="cursor-hover inline-block">
-              <h4 className="text-sm uppercase tracking-widest mb-1 font-bold">Teléfono</h4>
-              <p>+57 300 123 4567</p>
-            </div>
-          </div>
-        </div>
+  const directLinks = [
+    { label: dict.contact.whatsapp, value: 'WhatsApp', href: whatsappLink(dict.common.whatsappMessage) },
+    { label: dict.contact.email, value: site.email, href: `mailto:${site.email}` },
+    { label: dict.contact.instagram, value: site.instagramHandle, href: site.instagram },
+  ];
 
-        {/* Form */}
-        <div className="bg-beige-50 p-8 md:p-12 shadow-sm relative z-10 border border-beige-200 min-h-[500px]">
-          <AnimatePresence mode="wait">
-            {formState === 'success' ? (
-              <motion.div 
-                key="success"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                className="h-full flex flex-col items-center justify-center text-center space-y-6 py-20"
-              >
-                <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center text-green-600 border border-green-100">
-                  <Check size={40} />
-                </div>
-                <h3 className="text-3xl font-serif text-black-rich">¡Mensaje Enviado!</h3>
-                <p className="text-black-soft font-light max-w-xs">
-                  Gracias por contactarnos. Nuestro equipo revisará tu solicitud y te responderá en breve.
-                </p>
-                <button 
-                  onClick={() => setFormState('idle')}
-                  className="mt-8 text-xs uppercase tracking-widest border-b border-black-rich pb-1 hover:text-beige-900 hover:border-beige-900 transition-colors cursor-hover"
-                >
-                  Enviar otro mensaje
-                </button>
-              </motion.div>
-            ) : (
-              <motion.form 
-                key="form"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="space-y-6"
-                onSubmit={handleSubmit}
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                    <label htmlFor="contact-nombre" className="block text-xs uppercase tracking-widest text-black-soft mb-2">Nombre</label>
-                    <input 
-                        required 
-                        id="contact-nombre"
-                        name="nombre"
-                        value={formData.nombre}
-                        onChange={handleChange}
-                        type="text" 
-                        className="cursor-hover w-full bg-white border-b border-gray-200 p-3 focus:outline-none focus:border-black-rich transition-colors font-light" 
-                        placeholder="Tu nombre" 
-                    />
-                    </div>
-                    <div>
-                    <label htmlFor="contact-apellido" className="block text-xs uppercase tracking-widest text-black-soft mb-2">Apellido</label>
-                    <input 
-                        required 
-                        id="contact-apellido"
-                        name="apellido"
-                        value={formData.apellido}
-                        onChange={handleChange}
-                        type="text" 
-                        className="cursor-hover w-full bg-white border-b border-gray-200 p-3 focus:outline-none focus:border-black-rich transition-colors font-light" 
-                        placeholder="Tu apellido" 
-                    />
-                    </div>
-                </div>
-                
-                <div className="grid grid-cols-1 gap-6">
-                    <div>
-                        <label htmlFor="contact-email" className="block text-xs uppercase tracking-widest text-black-soft mb-2">Email</label>
-                        <input 
-                            required 
-                            id="contact-email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            type="email" 
-                            className="cursor-hover w-full bg-white border-b border-gray-200 p-3 focus:outline-none focus:border-black-rich transition-colors font-light" 
-                            placeholder="tu@email.com" 
+  return (
+    <section
+      id={sectionIds.contact}
+      className="border-t border-ink-line bg-ink py-24 md:py-36"
+    >
+      <div className="mx-auto max-w-[1600px] px-6 md:px-10">
+        <Reveal>
+          <p className="eyebrow mb-8">{dict.contact.eyebrow}</p>
+        </Reveal>
+
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+          {/* Argument + direct channels */}
+          <div className="lg:col-span-5">
+            <h2 className="display max-w-[14ch] text-display-lg">
+              <RevealWords text={dict.contact.title} />
+            </h2>
+
+            <Reveal delay={0.15}>
+              <p className="mt-8 max-w-md text-base leading-relaxed text-bone/70">
+                {dict.contact.body}
+              </p>
+              <p className="mono-label mt-6 text-render">{dict.contact.responseTime}</p>
+            </Reveal>
+
+            <Reveal delay={0.25}>
+              <p className="eyebrow mt-14 mb-6">{dict.contact.directLabel}</p>
+              <ul className="border-t border-ink-line">
+                {directLinks.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target={link.href.startsWith('http') ? '_blank' : undefined}
+                      rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="group flex items-center justify-between gap-4 border-b border-ink-line py-5 transition-colors duration-300 hover:text-render"
+                    >
+                      <span className="mono-label text-bone-faint">{link.label}</span>
+                      <span className="flex items-center gap-2 text-sm text-bone transition-colors duration-300 group-hover:text-render">
+                        {link.value}
+                        <ArrowUpRight
+                          size={15}
+                          strokeWidth={1.25}
+                          className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                         />
-                    </div>
-                    <div>
-                        <label htmlFor="contact-whatsapp" className="block text-xs uppercase tracking-widest text-black-soft mb-2">WhatsApp</label>
-                        <div className="flex gap-3">
-                          <div className="relative w-[120px] shrink-0">
-                             <select
-                                id="contact-country-code"
-                                name="countryCode"
-                                value={formData.countryCode}
-                                onChange={handleChange}
-                                className="cursor-hover w-full bg-white border-b border-gray-200 p-3 focus:outline-none focus:border-black-rich transition-colors font-light appearance-none pr-8"
-                             >
-                               {countryCodes.map((country) => (
-                                 <option key={country.code} value={country.code}>
-                                   {country.flag} {country.code}
-                                 </option>
-                               ))}
-                             </select>
-                             <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                               <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                               </svg>
-                             </div>
-                          </div>
-                          <input 
-                              required 
-                              id="contact-whatsapp"
-                              name="whatsapp"
-                              value={formData.whatsapp}
-                              onChange={handleChange}
-                              type="tel" 
-                              className="cursor-hover w-full bg-white border-b border-gray-200 p-3 focus:outline-none focus:border-black-rich transition-colors font-light flex-1 min-w-0" 
-                              placeholder="300 123 4567" 
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+
+          {/* Form */}
+          <div className="lg:col-span-6 lg:col-start-7">
+            <Reveal delay={0.1}>
+              <div className="border border-ink-line bg-ink-raised p-7 md:p-10">
+                <AnimatePresence mode="wait">
+                  {state === 'success' ? (
+                    <motion.div
+                      key="success"
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                      className="flex min-h-[520px] flex-col items-start justify-center"
+                    >
+                      <span className="flex h-14 w-14 items-center justify-center rounded-full border border-render/40 text-render">
+                        <Check size={26} strokeWidth={1.25} />
+                      </span>
+                      <h3 className="display mt-8 text-display-sm text-bone">
+                        {f.successTitle}
+                      </h3>
+                      <p className="mt-4 max-w-sm text-sm leading-relaxed text-bone/60">
+                        {f.successBody}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setState('idle')}
+                        className="mono-label link-wipe mt-10 text-bone-dim hover:text-bone"
+                      >
+                        {f.successAgain}
+                      </button>
+                    </motion.div>
+                  ) : (
+                    <motion.form
+                      key="form"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      onSubmit={submit}
+                      noValidate
+                      className="space-y-7"
+                    >
+                      <div className="grid gap-7 sm:grid-cols-2">
+                        <Field
+                          id="nombre"
+                          label={f.firstName}
+                          placeholder={f.firstNamePlaceholder}
+                          value={data.nombre}
+                          error={errors.nombre}
+                          onChange={set}
+                        />
+                        <Field
+                          id="apellido"
+                          label={f.lastName}
+                          placeholder={f.lastNamePlaceholder}
+                          value={data.apellido}
+                          error={errors.apellido}
+                          onChange={set}
+                        />
+                      </div>
+
+                      <Field
+                        id="email"
+                        type="email"
+                        label={f.email}
+                        placeholder={f.emailPlaceholder}
+                        value={data.email}
+                        error={errors.email}
+                        onChange={set}
+                      />
+
+                      <div>
+                        <label htmlFor="whatsapp" className="eyebrow mb-3 block">
+                          {f.phone}
+                        </label>
+                        <div className="flex gap-4">
+                          <select
+                            aria-label={f.countryCode}
+                            value={data.countryCode}
+                            onChange={(e) => set('countryCode', e.target.value)}
+                            className={`${FIELD} w-[104px] shrink-0 cursor-pointer`}
+                          >
+                            {COUNTRY_CODES.map((c) => (
+                              <option key={c.code} value={c.code} className="bg-ink text-bone">
+                                {c.flag} {c.code}
+                              </option>
+                            ))}
+                          </select>
+                          <input
+                            id="whatsapp"
+                            type="tel"
+                            inputMode="tel"
+                            value={data.whatsapp}
+                            placeholder={f.phonePlaceholder}
+                            onChange={(e) => set('whatsapp', e.target.value)}
+                            aria-invalid={!!errors.whatsapp}
+                            className={FIELD}
                           />
                         </div>
-                    </div>
-                </div>
+                        {errors.whatsapp && <ErrorText>{errors.whatsapp}</ErrorText>}
+                      </div>
 
-                <div>
-                    <label className="block text-xs uppercase tracking-widest text-black-soft mb-4">Preferencia de Contacto</label>
-                    <div className="flex gap-6">
-                        <label className="flex items-center gap-2 cursor-pointer cursor-hover">
-                            <input 
-                                type="radio" 
-                                name="preference" 
-                                value="email" 
-                                checked={formData.preference === 'email'}
-                                onChange={handleChange}
-                                className="accent-black-rich" 
-                            />
-                            <span className="text-sm font-light text-black-soft">Email</span>
+                      <div>
+                        <label htmlFor="service" className="eyebrow mb-3 block">
+                          {f.service}
                         </label>
-                        <label className="flex items-center gap-2 cursor-pointer cursor-hover">
-                            <input 
-                                type="radio" 
-                                name="preference" 
-                                value="whatsapp" 
-                                checked={formData.preference === 'whatsapp'}
-                                onChange={handleChange}
-                                className="accent-black-rich" 
-                            />
-                            <span className="text-sm font-light text-black-soft">WhatsApp</span>
-                        </label>
-                        <label className="flex items-center gap-2 cursor-pointer cursor-hover">
-                            <input 
-                                type="radio" 
-                                name="preference" 
-                                value="both" 
-                                checked={formData.preference === 'both'}
-                                onChange={handleChange}
-                                className="accent-black-rich" 
-                            />
-                            <span className="text-sm font-light text-black-soft">Ambos</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div>
-                  <label htmlFor="contact-service" className="block text-xs uppercase tracking-widest text-black-soft mb-2">Servicio de Interés</label>
-                  <div className="relative">
-                    <select 
-                        id="contact-service"
-                        name="service"
-                        value={formData.service}
-                        onChange={handleChange}
-                        className="cursor-hover w-full bg-white border-b border-gray-200 p-3 focus:outline-none focus:border-black-rich transition-colors font-light appearance-none rounded-none"
-                    >
-                        <option>Diseño Arquitectónico</option>
-                        <option>Interiorismo</option>
-                        <option>Consultoría</option>
-                        <option>Presupuesto / Cotización</option>
-                        <option>Agendar Cita</option>
-                    </select>
-                    {/* Custom Arrow */}
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 1L5 5L9 1" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-                
-                <div>
-                  <label htmlFor="contact-message" className="block text-xs uppercase tracking-widest text-black-soft mb-2">Mensaje</label>
-                  <textarea 
-                    required 
-                    id="contact-message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    rows={4} 
-                    className="cursor-hover w-full bg-white border-b border-gray-200 p-3 focus:outline-none focus:border-black-rich transition-colors font-light resize-none" 
-                    placeholder="Cuéntanos sobre tu proyecto..."
-                  ></textarea>
-                </div>
+                        <select
+                          id="service"
+                          value={data.service}
+                          onChange={(e) => set('service', e.target.value)}
+                          className={`${FIELD} cursor-pointer`}
+                        >
+                          {f.serviceOptions.map((option) => (
+                            <option key={option} value={option} className="bg-ink text-bone">
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
 
-                {formState === 'error' && (
-                    <p id="contact-form-error" className="text-red-500 text-xs" role="alert">Hubo un error al enviar el mensaje. Por favor intenta de nuevo.</p>
-                )}
+                      <fieldset>
+                        <legend className="eyebrow mb-4">{f.preference}</legend>
+                        <div className="flex flex-wrap gap-6">
+                          {[
+                            { value: 'email', label: f.preferenceEmail },
+                            { value: 'whatsapp', label: f.preferenceWhatsapp },
+                            { value: 'both', label: f.preferenceBoth },
+                          ].map((option) => (
+                            <label
+                              key={option.value}
+                              className="flex cursor-pointer items-center gap-2.5 text-sm text-bone/70 transition-colors duration-300 hover:text-bone"
+                            >
+                              <input
+                                type="radio"
+                                name="preference"
+                                value={option.value}
+                                checked={data.preference === option.value}
+                                onChange={(e) => set('preference', e.target.value)}
+                                className="h-4 w-4 accent-render"
+                              />
+                              {option.label}
+                            </label>
+                          ))}
+                        </div>
+                      </fieldset>
 
-                <button 
-                  type="submit" 
-                  disabled={formState === 'loading'}
-                  aria-describedby={formState === 'error' ? 'contact-form-error' : undefined}
-                  className="cursor-hover w-full bg-black-rich text-white py-4 text-xs uppercase tracking-[0.2em] hover:bg-black-soft transition-colors duration-300 mt-4 flex items-center justify-center disabled:opacity-70"
-                >
-                  {formState === 'loading' ? <Loader2 className="animate-spin" size={20} /> : 'Enviar Solicitud'}
-                </button>
-              </motion.form>
-            )}
-          </AnimatePresence>
+                      <div>
+                        <label htmlFor="message" className="eyebrow mb-3 block">
+                          {f.message}
+                        </label>
+                        <textarea
+                          id="message"
+                          rows={4}
+                          value={data.message}
+                          placeholder={f.messagePlaceholder}
+                          onChange={(e) => set('message', e.target.value)}
+                          aria-invalid={!!errors.message}
+                          className={`${FIELD} resize-none`}
+                        />
+                        {errors.message && <ErrorText>{errors.message}</ErrorText>}
+                      </div>
+
+                      {state === 'error' && (
+                        <p role="alert" className="text-sm text-red-400">
+                          {f.errorGeneric}
+                        </p>
+                      )}
+
+                      <button
+                        type="submit"
+                        disabled={state === 'loading'}
+                        className="mono-label flex w-full items-center justify-center gap-3 bg-bone py-4.5 text-ink transition-colors duration-500 hover:bg-render disabled:cursor-wait disabled:opacity-60"
+                      >
+                        {state === 'loading' ? (
+                          <>
+                            <Loader2 size={16} className="animate-spin" />
+                            {f.submitting}
+                          </>
+                        ) : (
+                          f.submit
+                        )}
+                      </button>
+                    </motion.form>
+                  )}
+                </AnimatePresence>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </div>
-      {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[40%] h-full bg-gradient-to-l from-beige-50/50 to-transparent pointer-events-none -z-0"></div>
     </section>
+  );
+}
+
+function ErrorText({ children }: { children: React.ReactNode }) {
+  return (
+    <p role="alert" className="mt-2 text-xs text-red-400">
+      {children}
+    </p>
+  );
+}
+
+function Field({
+  id,
+  label,
+  placeholder,
+  value,
+  error,
+  type = 'text',
+  onChange,
+}: {
+  id: string;
+  label: string;
+  placeholder: string;
+  value: string;
+  error?: string;
+  type?: string;
+  onChange: (name: string, value: string) => void;
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className="eyebrow mb-3 block">
+        {label}
+      </label>
+      <input
+        id={id}
+        type={type}
+        value={value}
+        placeholder={placeholder}
+        onChange={(e) => onChange(id, e.target.value)}
+        aria-invalid={!!error}
+        className={FIELD}
+      />
+      {error && <ErrorText>{error}</ErrorText>}
+    </div>
   );
 }
