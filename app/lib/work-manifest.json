@@ -15,6 +15,21 @@
     }
   },
   {
+    "slug": "casa-mediterranea-luxury",
+    "model": {
+      "src": "/work/casa-mediterranea-luxury-model.webp",
+      "width": 2000,
+      "height": 1115,
+      "blurDataURL": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAAAQBACdASoYAA0APt1cpkyopSOiMAgBEBuJYgCdACFJKOmQMWbJ2hzIQAD9Kb435XBAgpXNEA+HvirJEqW5WEB+lAu8JstawuMnQWzj2rYjY8zVXjBFdCgRbbbC6MqeEkV/Zibdv7sgoVVHOoYrwGdB1uwnKR6rkxWM212mM1Pb+88DB6qWM2XzaIQ60tOOISbLolTKLHvBo8AA"
+    },
+    "render": {
+      "src": "/work/casa-mediterranea-luxury-render.webp",
+      "width": 2000,
+      "height": 1116,
+      "blurDataURL": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAAAQBACdASoYAA0APt1apkyopSOiMAgBEBuJQBOmXqQ6iT0TtuMTo0qkwAD+JvN81RSYkB3aEBYUS+qsn/BF+2W5OzDnhY1yd0BkYxcZp7QiQaJlYOj+ZBsqWTzSXIbce84Xz8lAeT+u/ixPOMtJPwO5D27htOqCAJ+33NzKbooX1r6r/auWOFnAb2Hcc7p60geLHRVtUyNsR/lip6udvtWgAAA="
+    }
+  },
+  {
     "slug": "diseno-interior",
     "model": {
       "src": "/work/diseno-interior-model.webp",

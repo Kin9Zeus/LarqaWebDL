@@ -70,7 +70,7 @@
   },
   "work": {
     "eyebrow": "Work",
-    "title": "Nine frames. Two states each.",
+    "title": "{count} frames. Two states each.",
     "body": "Every pair shows the same model before and after the render. Tap any of them to compare full screen.",
     "viewLabel": "Compare",
     "closeLabel": "Close",
@@ -79,6 +79,7 @@
     "counterSeparator": "of",
     "projects": {
       "villa-luxury-frente-al-mar": { "title": "Oceanfront Villa", "typology": "Luxury residential" },
+      "casa-mediterranea-luxury": { "title": "Mediterranean House", "typology": "Luxury residential" },
       "vista-trasera-casa-luxury": { "title": "Luxury House · Rear View", "typology": "Luxury residential" },
       "hotel-biofilico": { "title": "Biophilic Hotel", "typology": "Hospitality" },
       "spa-bali": { "title": "Bali Spa", "typology": "Wellness" },

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
@@ -156,53 +156,45 @@ export default function Hero({ dict, fallback }: { dict: Dictionary; fallback: W
           style={mounted ? { opacity: contentOpacity, y: contentY } : undefined}
           className="relative z-10 mx-auto w-full max-w-[1600px] px-6 pb-[clamp(2.5rem,8vh,6rem)] md:px-10"
         >
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="eyebrow mb-5 flex items-center gap-3 md:mb-7"
+          {/* The entrance below runs in CSS, not Framer Motion. Framer writes
+              its `initial` state into the server HTML, so if the JS never runs
+              the headline stays translated out of its overflow-hidden box and
+              the hero reads as empty. In CSS the markup ships visible and the
+              animation is purely additive. */}
+          <p
+            className="eyebrow hero-fade mb-5 flex items-center gap-3 md:mb-7"
+            style={{ '--enter-delay': '0.15s' } as CSSProperties}
           >
             <span className="inline-block h-px w-8 bg-render" aria-hidden="true" />
             {dict.hero.eyebrow}
-          </motion.p>
+          </p>
 
           <h1 className="display max-w-[16ch] text-display-xl">
             <span className="block overflow-hidden">
-              <motion.span
-                className="block"
-                initial={{ y: '110%' }}
-                animate={{ y: '0%' }}
-                transition={{ duration: 1.1, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              >
+              <span className="hero-rise block" style={{ '--enter-delay': '0.25s' } as CSSProperties}>
                 {dict.hero.titleLead}
-              </motion.span>
+              </span>
             </span>
             <span className="block overflow-hidden">
-              <motion.span
-                className="block text-render"
-                initial={{ y: '110%' }}
-                animate={{ y: '0%' }}
-                transition={{ duration: 1.1, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
+              <span
+                className="hero-rise block text-render"
+                style={{ '--enter-delay': '0.38s' } as CSSProperties}
               >
                 {dict.hero.titleAccent}
-              </motion.span>
+              </span>
             </span>
           </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 max-w-xl text-base leading-relaxed text-bone/75 md:mt-8 md:text-lg"
+          <p
+            className="hero-fade mt-6 max-w-xl text-base leading-relaxed text-bone/75 md:mt-8 md:text-lg"
+            style={{ '--enter-delay': '0.6s' } as CSSProperties}
           >
             {dict.hero.subtitle}
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.72, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5 md:mt-11"
+          <div
+            className="hero-fade mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5 md:mt-11"
+            style={{ '--enter-delay': '0.72s' } as CSSProperties}
           >
             <a
               href={`#${sectionIds.method}`}
@@ -221,7 +213,7 @@ export default function Hero({ dict, fallback }: { dict: Dictionary; fallback: W
             >
               {dict.hero.ctaSecondary}
             </a>
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* Scroll cue */}

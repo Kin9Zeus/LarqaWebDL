@@ -80,7 +80,8 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
   };
 
   return (
-    <header
+    <>
+      <header
       className={`fixed inset-x-0 top-0 z-[100] transition-[background-color,backdrop-filter,border-color] duration-500 ${
         scrolled || open
           ? 'border-b border-ink-line/80 bg-ink/85 backdrop-blur-xl'
@@ -157,7 +158,12 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
         style={mounted ? { scaleX: progress, opacity: scrolled ? 1 : 0 } : { scaleX: 0, opacity: 0 }}
         aria-hidden="true"
       />
+      </header>
 
+      {/* The menu lives OUTSIDE <header> on purpose. The header carries
+          backdrop-blur, and backdrop-filter establishes a containing block for
+          fixed descendants — nested inside it, this panel resolved inset-0
+          against the header's 5rem box and opened only 88px tall. */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -214,6 +220,6 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

@@ -151,7 +151,11 @@ export default function Contact({ dict, locale }: { dict: Dictionary; locale: Lo
           <div className="lg:col-span-6 lg:col-start-7">
             <Reveal delay={0.1}>
               <div className="border border-ink-line bg-ink-raised p-7 md:p-10">
-                <AnimatePresence mode="wait">
+                {/* initial={false} keeps the form out of its mount animation:
+                    otherwise Framer writes opacity:0 into the server HTML and
+                    the whole form is invisible until JS runs. The cross-fade
+                    to the success state still animates. */}
+                <AnimatePresence mode="wait" initial={false}>
                   {state === 'success' ? (
                     <motion.div
                       key="success"

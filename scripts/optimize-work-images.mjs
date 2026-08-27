@@ -33,12 +33,13 @@ async function main() {
   await mkdir(OUT_DIR, { recursive: true });
   await mkdir(path.dirname(MANIFEST), { recursive: true });
 
-  const files = (await readdir(SRC_DIR)).filter((f) => /\.(jpe?g|png)$/i.test(f));
+  const files = (await readdir(SRC_DIR)).filter((f) => /\.(jpe?g|png|webp)$/i.test(f));
   const projects = new Map();
 
   for (const file of files) {
-    const stem = file.replace(/\.(jpe?g|png)$/i, '');
-    const isModel = /_modelo_3d$/i.test(stem);
+    const stem = file.replace(/\.(jpe?g|png|webp)$/i, '');
+    // `_3d` is accepted alongside `_modelo_3d`: exports arrive under both names.
+    const isModel = /_(modelo_3d|3d)$/i.test(stem);
     const isRender = /_render$/i.test(stem);
     if (!isModel && !isRender) {
       console.warn(`skipped (unrecognized variant): ${file}`);
@@ -46,7 +47,7 @@ async function main() {
     }
 
     const variant = isModel ? 'model' : 'render';
-    const projectSlug = slugify(stem.replace(/_(modelo_3d|render)$/i, ''));
+    const projectSlug = slugify(stem.replace(/_(modelo_3d|3d|render)$/i, ''));
     const outName = `${projectSlug}-${variant}.webp`;
 
     const pipeline = sharp(path.join(SRC_DIR, file)).rotate();

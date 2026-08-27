@@ -27,10 +27,13 @@ export type WorkProject = WorkPair & {
  */
 const ORDER = [
   'villa-luxury-frente-al-mar',
-  'vista-trasera-casa-luxury',
+  // Slots 1 and 2 are the gallery's two portrait cells, so the only two
+  // portrait pairs belong here — anything else gets cropped hard.
   'hotel-biofilico',
-  'spa-bali',
   'casa-madera',
+  'casa-mediterranea-luxury',
+  'vista-trasera-casa-luxury',
+  'spa-bali',
   'oficinas-modernas',
   'oficinas-neo-industrial',
   'tienda-de-ropa-neo-industrial',

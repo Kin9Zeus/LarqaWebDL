@@ -70,7 +70,7 @@
   },
   "work": {
     "eyebrow": "Proyectos",
-    "title": "Nueve encuadres. Dos estados cada uno.",
+    "title": "{count} encuadres. Dos estados cada uno.",
     "body": "Cada pareja muestra el mismo modelo antes y después del render. Toca cualquiera para compararlos a pantalla completa.",
     "viewLabel": "Comparar",
     "closeLabel": "Cerrar",
@@ -79,6 +79,7 @@
     "counterSeparator": "de",
     "projects": {
       "villa-luxury-frente-al-mar": { "title": "Villa Frente al Mar", "typology": "Residencial de lujo" },
+      "casa-mediterranea-luxury": { "title": "Casa Mediterránea", "typology": "Residencial de lujo" },
       "vista-trasera-casa-luxury": { "title": "Casa Luxury · Vista Posterior", "typology": "Residencial de lujo" },
       "hotel-biofilico": { "title": "Hotel Biofílico", "typology": "Hotelería" },
       "spa-bali": { "title": "Spa Bali", "typology": "Wellness" },

@@ -20,11 +20,12 @@ const LAYOUT = [
   { span: 'lg:col-span-4', aspect: 'aspect-[3/4]', sizes: '(min-width:1024px) 31vw, 100vw' },
   { span: 'lg:col-span-4', aspect: 'aspect-[3/4]', sizes: '(min-width:1024px) 31vw, 100vw' },
   { span: 'lg:col-span-8', aspect: 'aspect-[16/9]', sizes: '(min-width:1024px) 62vw, 100vw' },
-  { span: 'lg:col-span-4', aspect: 'aspect-[3/4]', sizes: '(min-width:1024px) 31vw, 100vw' },
-  { span: 'lg:col-span-8', aspect: 'aspect-[16/9]', sizes: '(min-width:1024px) 62vw, 100vw' },
   { span: 'lg:col-span-6', aspect: 'aspect-[4/3]', sizes: '(min-width:1024px) 47vw, 100vw' },
   { span: 'lg:col-span-6', aspect: 'aspect-[4/3]', sizes: '(min-width:1024px) 47vw, 100vw' },
-  { span: 'lg:col-span-12', aspect: 'aspect-[21/9]', sizes: '95vw' },
+  { span: 'lg:col-span-6', aspect: 'aspect-[4/3]', sizes: '(min-width:1024px) 47vw, 100vw' },
+  { span: 'lg:col-span-6', aspect: 'aspect-[4/3]', sizes: '(min-width:1024px) 47vw, 100vw' },
+  { span: 'lg:col-span-6', aspect: 'aspect-[4/3]', sizes: '(min-width:1024px) 47vw, 100vw' },
+  { span: 'lg:col-span-6', aspect: 'aspect-[4/3]', sizes: '(min-width:1024px) 47vw, 100vw' },
 ];
 
 export default function WorkGallery({
@@ -80,7 +81,9 @@ export default function WorkGallery({
 
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
           <h2 className="display text-display-lg lg:col-span-7">
-            <RevealWords text={dict.work.title} />
+            {/* Counted from the manifest so adding a pair never leaves a stale
+                number in the headline. */}
+            <RevealWords text={dict.work.title.replace('{count}', String(projects.length))} />
           </h2>
           <Reveal delay={0.15} className="lg:col-span-5 lg:pt-3">
             <p className="max-w-md text-base leading-relaxed text-bone/70">{dict.work.body}</p>
@@ -117,12 +120,11 @@ export default function WorkGallery({
                         className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                       />
 
-                      {/* Hover wipes back to the 3D model — a preview of the
-                          mechanic the lightbox opens into. */}
-                      <div
-                        className="absolute inset-0 [clip-path:inset(0_100%_0_0)] transition-[clip-path] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:[clip-path:inset(0_0%_0_0)] group-focus-visible:[clip-path:inset(0_0%_0_0)]"
-                        aria-hidden="true"
-                      >
+                      {/* Wipes back to the 3D model — a preview of the mechanic
+                          the lightbox opens into. Driven by hover on pointer
+                          devices and by a one-shot animation on touch; see
+                          .work-peek in globals.css. */}
+                      <div className="work-peek" aria-hidden="true">
                         <Image
                           src={project.model.src}
                           alt=""
@@ -139,7 +141,7 @@ export default function WorkGallery({
                         aria-hidden="true"
                       />
 
-                      <span className="mono-label absolute bottom-4 right-4 z-10 border border-bone/25 bg-ink/60 px-3 py-1.5 text-bone opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100">
+                      <span className="work-cta mono-label absolute bottom-4 right-4 z-10 border border-bone/25 bg-ink/60 px-3 py-1.5 text-bone opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100">
                         {dict.work.viewLabel}
                       </span>
                     </div>

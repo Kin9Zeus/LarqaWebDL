@@ -132,6 +132,16 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <body className="grain bg-ink text-bone antialiased">
+        {/* Gates every scroll-reveal in globals.css. Runs during parsing, before
+            any of them paint, and only sets the flag when the observer that
+            reveals them is actually available — so a browser that cannot run
+            this (Instagram's in-app WebView, for one) renders the page in its
+            finished, readable state instead of a screen of invisible text. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if('IntersectionObserver' in window&&'transition' in document.documentElement.style)document.documentElement.classList.add('js')}catch(e){}`,
+          }}
+        />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-sm focus:bg-bone focus:px-4 focus:py-3 focus:text-sm focus:text-ink"
