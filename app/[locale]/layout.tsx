@@ -72,10 +72,18 @@ export async function generateMetadata({
       description: dict.meta.description,
       images: ['/og.jpg'],
     },
+    /* The wordmark is 2.3:1, so pointing these at /logo.png squashed it into an
+       illegible smear. They now use the square L mark from
+       scripts/make-favicon.mjs, with the .ico carrying purpose-drawn 16/32/48
+       rasters rather than one downscaled bitmap. */
     icons: {
-      icon: '/logo.png',
-      shortcut: '/logo.png',
-      apple: '/logo.png',
+      // app/favicon.ico is injected by Next's file convention, so it is not
+      // repeated here.
+      icon: [
+        { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
+        { url: '/icon-512.png', type: 'image/png', sizes: '512x512' },
+      ],
+      apple: [{ url: '/apple-icon.png', sizes: '180x180' }],
     },
     robots: { index: true, follow: true },
   };

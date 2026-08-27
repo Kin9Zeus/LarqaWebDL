@@ -43,3 +43,6 @@ next-env.d.ts
 # raw source imagery (~57MB) — optimized derivatives are committed in public/work/
 # regenerate with: node scripts/optimize-work-images.mjs
 /3D a Render imagenes/
+
+# favicon preview output (regenerate with: node scripts/make-favicon.mjs --preview)
+/scratch-favicon/

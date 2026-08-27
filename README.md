@@ -87,6 +87,25 @@ Derives `public/logo-light.png` (the wordmark in bone on transparency, for the
 dark navbar) and `public/og.jpg` (the 1200×630 social card) from `logo.png` and
 the villa render.
 
+### Favicon
+
+```bash
+node scripts/make-favicon.mjs --preview
+```
+
+Writes `app/favicon.ico` (16/32/48) plus `public/icon-192.png`,
+`public/icon-512.png` and `public/apple-icon.png`.
+
+The wordmark cannot be the favicon — it is 2.3:1, and squaring it produced the
+illegible smear this replaced. The mark is a capital L drawn in the logo's voice
+(heavy stem, light arm, flared bracket serifs) rather than a trace of the logo's
+own glyph, which is closer to a capital I and only reads as an L thanks to the
+swash under the wordmark; that swash turns to mush below 32px.
+
+The 16 and 32px rasters come from a heavier cut of the same skeleton, because
+the fine cut's arm disappears at that scale. `--preview` writes each size to
+`scratch-favicon/` for inspection.
+
 ### Hero video
 
 Not in the repo yet. The hero falls back to a still until the files land — see
