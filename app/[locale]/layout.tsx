@@ -139,7 +139,7 @@ export default async function LocaleLayout({
             finished, readable state instead of a screen of invisible text. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var d=document.documentElement;if('IntersectionObserver' in window&&'transition' in d.style){d.classList.add('js');setTimeout(function(){d.classList.add('hero-settled')},2600);var ok=false,p=new IntersectionObserver(function(){ok=true;p.disconnect()});p.observe(d);setTimeout(function(){if(!ok){d.classList.add('io-broken');try{p.disconnect()}catch(e){}}},1500)}}catch(e){}`,
+            __html: `try{var d=document.documentElement,w=window,n=navigator,mq=w.matchMedia&&w.matchMedia.bind(w),coarse=mq?(mq('(pointer: coarse)').matches||(mq('(any-pointer: coarse)').matches&&!mq('(any-pointer: fine)').matches)):(('ontouchstart' in w)||n.maxTouchPoints>0);if(coarse)d.classList.add('coarse');if('IntersectionObserver' in w&&'transition' in d.style){d.classList.add('js');setTimeout(function(){d.classList.add('hero-settled')},3500);var ok=false,p=new IntersectionObserver(function(){ok=true;p.disconnect()});p.observe(d);setTimeout(function(){if(!ok){d.classList.add('io-broken');try{p.disconnect()}catch(e){}}},1500)}}catch(e){}`,
           }}
         />
         <a

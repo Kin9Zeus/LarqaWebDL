@@ -27,9 +27,21 @@ export default function Hero({ dict, fallback }: { dict: Dictionary; fallback: W
   const [videoFailed, setVideoFailed] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
 
+  /**
+   * The offset has to change with the mode, and that is the actual fix for the
+   * hero going blank in Instagram's browser.
+   *
+   * Desktop pins across 320vh, so `start start -> end end` yields ~220vh of
+   * real travel. Mobile is exactly `h-screen`, where that same pair measures
+   * ZERO travel — progress pins at 1 and `contentOpacity` collapses the hero to
+   * opacity 0. `end start` instead measures the section leaving the top of the
+   * viewport, so the travel equals the section height and is never degenerate.
+   *
+   * Framer keys this on JSON.stringify(offset), so the inline array is fine.
+   */
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ['start start', 'end end'],
+    offset: mode === 'scrub' ? ['start start', 'end end'] : ['start start', 'end start'],
   });
 
   const smooth = useSpring(scrollYProgress, { stiffness: 90, damping: 28, mass: 0.5 });
@@ -41,22 +53,11 @@ export default function Hero({ dict, fallback }: { dict: Dictionary; fallback: W
   // Scroll-linked styles are withheld until after hydration; see useMounted.
   const mounted = useMounted();
 
-  /**
-   * These only apply in scrub mode, and that is a correctness fix rather than
-   * an optimisation.
-   *
-   * The section is 320vh on desktop but exactly `h-screen` on mobile, so there
-   * the `['start start', 'end end']` range has zero length. A zero-length range
-   * makes progress jump straight to 1, `contentOpacity` maps 0.5 -> 0, and the
-   * entire hero renders at opacity 0. Desktop browsers happened to survive it
-   * because a dynamic URL bar left the section marginally taller than the
-   * viewport; Instagram's in-app browser did not, which is why the hero was
-   * blank there and nowhere else.
-   */
-  const scrubbing = mounted && mode === 'scrub';
-  const contentStyle = scrubbing ? { opacity: contentOpacity, y: contentY } : undefined;
-  const mediaStyle = scrubbing ? { scale: mediaScale } : undefined;
-  const fadeStyle = scrubbing ? { opacity: contentOpacity } : undefined;
+  // Both modes now have a valid scroll range (see the offset above), so the
+  // parallax and fade apply on mobile too — only hydration gates them.
+  const contentStyle = mounted ? { opacity: contentOpacity, y: contentY } : undefined;
+  const mediaStyle = mounted ? { scale: mediaScale } : undefined;
+  const fadeStyle = mounted ? { opacity: contentOpacity } : undefined;
 
   // Decide scrub vs loop once, and re-decide on resize.
   useEffect(() => {

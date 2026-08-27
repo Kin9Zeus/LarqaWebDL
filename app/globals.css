@@ -333,16 +333,28 @@ canvas {
   }
 }
 
-/* The hero entrance is gated on `.js` for exactly the same reason the scroll
-   reveals are: `animation-fill-mode: both` holds the hidden `from` state
-   through the delay, so a rule that applies but never actually animates leaves
-   the headline permanently blank. Requiring `.js` means a browser that cannot
-   run our code never gets the hidden state in the first place. */
+/* Opacity only — no travel — so the hero still has an entrance for people who
+   asked for reduced motion. Fading carries none of the positional movement the
+   preference exists to avoid. */
+@keyframes hero-soft-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Deliberately NOT gated on `.js`. The blank hero in Instagram's browser turned
+   out to be a degenerate scroll range, not this animation — and a pure CSS
+   animation is safe on its own: if @keyframes were unsupported the whole
+   declaration is dropped and the element simply renders in place. Requiring
+   `.js` here only meant losing the animation for no benefit. */
 @media (prefers-reduced-motion: no-preference) {
-  .js .hero-rise {
+  .hero-rise {
     animation: hero-rise 1.1s var(--ease-out-quint) var(--enter-delay, 0s) both;
   }
-  .js .hero-fade {
+  .hero-fade {
     animation: hero-fade 0.9s var(--ease-out-quint) var(--enter-delay, 0s) both;
   }
 }
@@ -442,48 +454,60 @@ canvas {
   clip-path: inset(0 100% 0 0);
 }
 
-@media (hover: hover) {
-  .work-peek {
-    transition: clip-path 0.9s var(--ease-out-quint);
-  }
-  .group:hover .work-peek,
-  .group:focus-visible .work-peek {
-    clip-path: inset(0 0% 0 0);
-  }
+/* Split on the `.coarse` class rather than `@media (hover: ...)`. A number of
+   Android browsers and in-app WebViews report `hover: hover` on touchscreens,
+   which sent those devices down the hover branch and left them with no way to
+   ever see the 3D model. The class is set from real touch capability. */
+html:not(.coarse) .work-peek {
+  transition: clip-path 0.9s var(--ease-out-quint);
+}
+html:not(.coarse) .group:hover .work-peek,
+html:not(.coarse) .group:focus-visible .work-peek {
+  clip-path: inset(0 0% 0 0);
 }
 
-@media (hover: none) {
-  /* Touch has no hover, so the card alternates on its own. `.peek-on` is
-     toggled by an observer as the card enters and leaves the viewport — ten
-     cards animating clip-path off-screen is real battery cost for nothing.
-     The negative per-card delay phase-shifts them so they never pulse in
-     unison. */
-  .work-peek {
-    animation: work-alternate 8s var(--ease-in-out-quart) infinite;
-    animation-delay: calc(var(--peek-index, 0) * -1.1s);
+.coarse .work-peek {
+  animation: work-alternate 8s var(--ease-in-out-quart) infinite;
+  animation-delay: calc(var(--peek-index, 0) * -1.1s);
+}
+/* Pausing off-screen cards is an optimisation, so it is expressed as an
+   opt-out. Gating the animation on a positive "is visible" class would mean an
+   environment whose observer never fires gets no alternation at all. */
+.coarse .peek-off .work-peek {
+  animation-play-state: paused;
+}
+.coarse .work-cta {
+  opacity: 1;
+}
+
+/* Under reduced motion the pair still needs to alternate — a touch device has
+   no other way to reveal the model. It cross-fades instead of wiping: opacity
+   carries no positional movement, so it does not trigger the vestibular
+   problems the preference exists to avoid. */
+@keyframes work-crossfade {
+  0%,
+  40% {
+    opacity: 0;
   }
-  /* Pausing off-screen cards is an optimisation, so it is expressed as an
-     opt-out. Gating the animation on a positive "is visible" class would mean
-     an environment whose observer never fires gets no alternation at all. */
-  .peek-off .work-peek {
-    animation-play-state: paused;
-  }
-  .work-cta {
+  52%,
+  78% {
     opacity: 1;
+  }
+  90%,
+  100% {
+    opacity: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .work-peek {
-    animation: none;
     transition: none;
   }
-  /* No motion, so show the split statically instead — the two states still
-     need to be legible on a device that cannot hover. */
-  @media (hover: none) {
-    .work-peek {
-      clip-path: inset(0 68% 0 0);
-    }
+  .coarse .work-peek {
+    clip-path: none;
+    opacity: 0;
+    animation: work-crossfade 8s ease-in-out infinite;
+    animation-delay: calc(var(--peek-index, 0) * -1.1s);
   }
 }
 
@@ -503,20 +527,21 @@ canvas {
     scroll-behavior: auto;
   }
 
-  /* Stop looping and travelling animations. Short state transitions (colour,
-     opacity, small hover shifts) are deliberately left alone — killing those
-     too makes the whole interface feel unresponsive, and they are not what
-     the preference is asking to remove. */
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-  }
-
+  /* Each looping decoration is switched off by name rather than through a
+     blanket `* { animation-duration: 0.001ms !important }`. That catch-all also
+     silenced things the preference does not ask to remove — the loading
+     spinner, and the cross-fade that is a touch device's only way to see the
+     3D model — and its !important made them impossible to re-enable. Short
+     colour and opacity transitions are left alone for the same reason. */
   .grain::after {
     display: none;
+  }
+  .scroll-cue {
+    animation: none;
+  }
+  .hero-rise,
+  .hero-fade {
+    animation: hero-soft-fade 0.7s ease var(--enter-delay, 0s) both;
   }
 
   /* A marquee that cannot move is just clipped text. Collapse it to a single
