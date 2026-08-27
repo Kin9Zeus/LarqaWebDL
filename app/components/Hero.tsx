@@ -40,7 +40,23 @@ export default function Hero({ dict, fallback }: { dict: Dictionary; fallback: W
 
   // Scroll-linked styles are withheld until after hydration; see useMounted.
   const mounted = useMounted();
-  const fadeStyle = mounted ? { opacity: contentOpacity } : undefined;
+
+  /**
+   * These only apply in scrub mode, and that is a correctness fix rather than
+   * an optimisation.
+   *
+   * The section is 320vh on desktop but exactly `h-screen` on mobile, so there
+   * the `['start start', 'end end']` range has zero length. A zero-length range
+   * makes progress jump straight to 1, `contentOpacity` maps 0.5 -> 0, and the
+   * entire hero renders at opacity 0. Desktop browsers happened to survive it
+   * because a dynamic URL bar left the section marginally taller than the
+   * viewport; Instagram's in-app browser did not, which is why the hero was
+   * blank there and nowhere else.
+   */
+  const scrubbing = mounted && mode === 'scrub';
+  const contentStyle = scrubbing ? { opacity: contentOpacity, y: contentY } : undefined;
+  const mediaStyle = scrubbing ? { scale: mediaScale } : undefined;
+  const fadeStyle = scrubbing ? { opacity: contentOpacity } : undefined;
 
   // Decide scrub vs loop once, and re-decide on resize.
   useEffect(() => {
@@ -109,7 +125,7 @@ export default function Hero({ dict, fallback }: { dict: Dictionary; fallback: W
           against the padding box, so it still fills the frame edge to edge. */}
       <div className="hero-anchor sticky top-0 flex h-screen overflow-hidden pt-[var(--nav-h)]">
         {/* Media layer */}
-        <motion.div className="absolute inset-0" style={mounted ? { scale: mediaScale } : undefined}>
+        <motion.div className="absolute inset-0" style={mediaStyle}>
           {videoFailed ? (
             <Image
               src={fallback.render.src}
@@ -153,7 +169,7 @@ export default function Hero({ dict, fallback }: { dict: Dictionary; fallback: W
 
         {/* Content */}
         <motion.div
-          style={mounted ? { opacity: contentOpacity, y: contentY } : undefined}
+          style={contentStyle}
           className="relative z-10 mx-auto w-full max-w-[1600px] px-6 pb-[clamp(2.5rem,8vh,6rem)] md:px-10"
         >
           {/* The entrance below runs in CSS, not Framer Motion. Framer writes

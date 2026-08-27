@@ -139,7 +139,7 @@ export default async function LocaleLayout({
             finished, readable state instead of a screen of invisible text. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if('IntersectionObserver' in window&&'transition' in document.documentElement.style)document.documentElement.classList.add('js')}catch(e){}`,
+            __html: `try{var d=document.documentElement;if('IntersectionObserver' in window&&'transition' in d.style){d.classList.add('js');setTimeout(function(){d.classList.add('hero-settled')},2600);var ok=false,p=new IntersectionObserver(function(){ok=true;p.disconnect()});p.observe(d);setTimeout(function(){if(!ok){d.classList.add('io-broken');try{p.disconnect()}catch(e){}}},1500)}}catch(e){}`,
           }}
         />
         <a

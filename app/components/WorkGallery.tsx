@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ArrowLeft, ArrowRight } from 'lucide-react';
@@ -93,72 +93,20 @@ export default function WorkGallery({
         <RevealRule className="my-12 md:my-16" />
 
         <ul className="grid gap-5 md:gap-6 lg:grid-cols-12">
-          {projects.map((project, i) => {
-            const slot = LAYOUT[i % LAYOUT.length];
-            return (
-              <li key={project.slug} className={slot.span}>
-                <Reveal delay={(i % 3) * 0.08}>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      lastTrigger.current = e.currentTarget;
-                      setOpenIndex(i);
-                    }}
-                    className="group block w-full text-left"
-                    aria-label={`${project.title} — ${dict.work.viewLabel}`}
-                  >
-                    <div
-                      className={`relative w-full overflow-hidden bg-ink-raised ${slot.aspect}`}
-                    >
-                      <Image
-                        src={project.render.src}
-                        alt={project.title}
-                        fill
-                        sizes={slot.sizes}
-                        placeholder="blur"
-                        blurDataURL={project.render.blurDataURL}
-                        className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-                      />
-
-                      {/* Wipes back to the 3D model — a preview of the mechanic
-                          the lightbox opens into. Driven by hover on pointer
-                          devices and by a one-shot animation on touch; see
-                          .work-peek in globals.css. */}
-                      <div className="work-peek" aria-hidden="true">
-                        <Image
-                          src={project.model.src}
-                          alt=""
-                          fill
-                          sizes={slot.sizes}
-                          placeholder="blur"
-                          blurDataURL={project.model.blurDataURL}
-                          className="object-cover"
-                        />
-                      </div>
-
-                      <div
-                        className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-90"
-                        aria-hidden="true"
-                      />
-
-                      <span className="work-cta mono-label absolute bottom-4 right-4 z-10 border border-bone/25 bg-ink/60 px-3 py-1.5 text-bone opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100">
-                        {dict.work.viewLabel}
-                      </span>
-                    </div>
-
-                    <div className="mt-4 flex items-baseline justify-between gap-4 border-t border-ink-line pt-4">
-                      <h3 className="display text-[1.5rem] leading-tight text-bone transition-colors duration-500 group-hover:text-render">
-                        {project.title}
-                      </h3>
-                      <span className="mono-label shrink-0 text-bone-faint">
-                        {project.typology}
-                      </span>
-                    </div>
-                  </button>
-                </Reveal>
-              </li>
-            );
-          })}
+          {projects.map((project, i) => (
+            <WorkCard
+              key={project.slug}
+              project={project}
+              slot={LAYOUT[i % LAYOUT.length]}
+              index={i}
+              revealDelay={(i % 3) * 0.08}
+              viewLabel={dict.work.viewLabel}
+              onOpen={(el) => {
+                lastTrigger.current = el;
+                setOpenIndex(i);
+              }}
+            />
+          ))}
         </ul>
       </div>
 
@@ -246,5 +194,110 @@ export default function WorkGallery({
         )}
       </AnimatePresence>
     </section>
+  );
+}
+
+
+type Slot = (typeof LAYOUT)[number];
+
+/**
+ * One gallery cell.
+ *
+ * Owns a live IntersectionObserver purely so the touch-device alternation can
+ * be switched off while the card is off screen — ten cards animating
+ * `clip-path` in the background is real battery cost for something nobody is
+ * looking at. `--peek-index` phase-shifts each card so they never pulse in
+ * unison. On pointer devices none of this applies and hover drives the wipe.
+ */
+function WorkCard({
+  project,
+  slot,
+  index,
+  revealDelay,
+  viewLabel,
+  onOpen,
+}: {
+  project: WorkProject;
+  slot: Slot;
+  index: number;
+  revealDelay: number;
+  viewLabel: string;
+  onOpen: (trigger: HTMLButtonElement) => void;
+}) {
+  const ref = useRef<HTMLLIElement>(null);
+  // Defaults to on-screen so the touch alternation runs even if the observer
+  // never delivers a callback; the observer can only ever pause it.
+  const [offScreen, setOffScreen] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) setOffScreen(!entry.isIntersecting);
+      },
+      { rootMargin: '10% 0px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <li
+      ref={ref}
+      className={`${slot.span}${offScreen ? ' peek-off' : ''}`}
+      style={{ '--peek-index': String(index) } as CSSProperties}
+    >
+      <Reveal delay={revealDelay}>
+        <button
+          type="button"
+          onClick={(e) => onOpen(e.currentTarget)}
+          className="group block w-full text-left"
+          aria-label={`${project.title} — ${viewLabel}`}
+        >
+          <div className={`relative w-full overflow-hidden bg-ink-raised ${slot.aspect}`}>
+            <Image
+              src={project.render.src}
+              alt={project.title}
+              fill
+              sizes={slot.sizes}
+              placeholder="blur"
+              blurDataURL={project.render.blurDataURL}
+              className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+            />
+
+            {/* The 3D model underneath. Revealed by hover on pointer devices and
+                by the looping alternation on touch; see .work-peek. */}
+            <div className="work-peek" aria-hidden="true">
+              <Image
+                src={project.model.src}
+                alt=""
+                fill
+                sizes={slot.sizes}
+                placeholder="blur"
+                blurDataURL={project.model.blurDataURL}
+                className="object-cover"
+              />
+            </div>
+
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-90"
+              aria-hidden="true"
+            />
+
+            <span className="work-cta mono-label absolute bottom-4 right-4 z-10 border border-bone/25 bg-ink/60 px-3 py-1.5 text-bone opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100">
+              {viewLabel}
+            </span>
+          </div>
+
+          <div className="mt-4 flex items-baseline justify-between gap-4 border-t border-ink-line pt-4">
+            <h3 className="display text-[1.5rem] leading-tight text-bone transition-colors duration-500 group-hover:text-render">
+              {project.title}
+            </h3>
+            <span className="mono-label shrink-0 text-bone-faint">{project.typology}</span>
+          </div>
+        </button>
+      </Reveal>
+    </li>
   );
 }

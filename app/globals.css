@@ -333,17 +333,29 @@ canvas {
   }
 }
 
-/* The hero is above the fold and must never wait on JS, so it animates in CSS
-   rather than through Framer Motion. */
+/* The hero entrance is gated on `.js` for exactly the same reason the scroll
+   reveals are: `animation-fill-mode: both` holds the hidden `from` state
+   through the delay, so a rule that applies but never actually animates leaves
+   the headline permanently blank. Requiring `.js` means a browser that cannot
+   run our code never gets the hidden state in the first place. */
 @media (prefers-reduced-motion: no-preference) {
-  .hero-rise {
-    animation: hero-rise 1.1s var(--ease-out-quint) both;
-    animation-delay: var(--enter-delay, 0s);
+  .js .hero-rise {
+    animation: hero-rise 1.1s var(--ease-out-quint) var(--enter-delay, 0s) both;
   }
-  .hero-fade {
-    animation: hero-fade 0.9s var(--ease-out-quint) both;
-    animation-delay: var(--enter-delay, 0s);
+  .js .hero-fade {
+    animation: hero-fade 0.9s var(--ease-out-quint) var(--enter-delay, 0s) both;
   }
+}
+
+/* Failsafe. The component adds this once the longest entrance has had time to
+   finish (~2.6s), so even a browser that applied the animation and then failed
+   to run it ends up with readable text. Declared after the rules above and at
+   equal specificity, so it wins. */
+.hero-settled .hero-rise,
+.hero-settled .hero-fade {
+  animation: none;
+  opacity: 1;
+  transform: none;
 }
 
 /* Scroll reveals: hidden only when JS is confirmed present. */
@@ -375,6 +387,18 @@ canvas {
   transition: transform 1s var(--ease-out-quint) var(--reveal-delay, 0s);
 }
 
+/* Feature detection is not enough on its own: an environment can expose
+   IntersectionObserver and then never deliver a callback, in which case every
+   reveal would hide itself and stay hidden. The head script probes for a real
+   callback and sets this when none arrives, which un-hides everything. */
+.io-broken .reveal,
+.io-broken .reveal-rule,
+.io-broken .reveal-word {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .js .reveal,
   .js .reveal-word,
@@ -395,16 +419,18 @@ canvas {
    of on hover.
    ========================================================================== */
 
-@keyframes work-peek {
-  0% {
+/* Weighted toward the render: it holds ~40% of the cycle, the model ~26%, and
+   the rest is spent wiping between them. */
+@keyframes work-alternate {
+  0%,
+  40% {
     clip-path: inset(0 100% 0 0);
   }
-  32% {
+  52%,
+  78% {
     clip-path: inset(0 0% 0 0);
   }
-  62% {
-    clip-path: inset(0 0% 0 0);
-  }
+  90%,
   100% {
     clip-path: inset(0 100% 0 0);
   }
@@ -427,10 +453,20 @@ canvas {
 }
 
 @media (hover: none) {
-  /* Staggered off the card's own reveal so a scroll past ten cards reads as a
-     sequence rather than ten things firing at once. */
-  .js .reveal.is-in .work-peek {
-    animation: work-peek 2.8s var(--ease-in-out-quart) 0.25s both;
+  /* Touch has no hover, so the card alternates on its own. `.peek-on` is
+     toggled by an observer as the card enters and leaves the viewport — ten
+     cards animating clip-path off-screen is real battery cost for nothing.
+     The negative per-card delay phase-shifts them so they never pulse in
+     unison. */
+  .work-peek {
+    animation: work-alternate 8s var(--ease-in-out-quart) infinite;
+    animation-delay: calc(var(--peek-index, 0) * -1.1s);
+  }
+  /* Pausing off-screen cards is an optimisation, so it is expressed as an
+     opt-out. Gating the animation on a positive "is visible" class would mean
+     an environment whose observer never fires gets no alternation at all. */
+  .peek-off .work-peek {
+    animation-play-state: paused;
   }
   .work-cta {
     opacity: 1;
@@ -441,6 +477,13 @@ canvas {
   .work-peek {
     animation: none;
     transition: none;
+  }
+  /* No motion, so show the split statically instead — the two states still
+     need to be legible on a device that cannot hover. */
+  @media (hover: none) {
+    .work-peek {
+      clip-path: inset(0 68% 0 0);
+    }
   }
 }
 
