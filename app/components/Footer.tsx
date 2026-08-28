@@ -72,13 +72,28 @@ export default function Footer({ dict, locale }: { dict: Dictionary; locale: Loc
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-ink-line pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-16 flex flex-col gap-4 border-t border-ink-line pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="mono-label text-bone-faint">
             © {year} {site.legalName}. {dict.footer.rights}
           </p>
-          <p className="mono-label text-bone-faint" lang={locale}>
-            {dict.footer.credit}
-          </p>
+          <a
+            href={site.developer.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 self-start rounded-full border border-ink-line px-3.5 py-1.5 transition-colors duration-300 hover:border-bone/25 sm:self-auto"
+          >
+            <span className="mono-label text-bone-faint" lang={locale}>
+              {dict.footer.credit}
+            </span>
+            <span className="mono-label text-bone/80 transition-colors duration-300 group-hover:text-bone">
+              {site.developer.name}
+            </span>
+            <ArrowUpRight
+              size={11}
+              strokeWidth={1.25}
+              className="text-bone-faint transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-bone"
+            />
+          </a>
         </div>
       </div>
     </footer>

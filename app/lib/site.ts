@@ -15,6 +15,10 @@ export const site = {
   instagram: 'https://www.instagram.com/larqa_arquitectura',
   instagramHandle: '@larqa_arquitectura',
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '573007173422',
+  developer: {
+    name: 'DevLeck',
+    url: 'https://www.devleck.com',
+  },
 } as const;
 
 /** Builds a wa.me deep link with a pre-written first message. */
