@@ -78,16 +78,16 @@
     "nextLabel": "Next",
     "counterSeparator": "of",
     "projects": {
-      "villa-luxury-frente-al-mar": { "title": "Oceanfront Villa", "typology": "Luxury residential" },
-      "casa-mediterranea-luxury": { "title": "Mediterranean House", "typology": "Luxury residential" },
-      "vista-trasera-casa-luxury": { "title": "Luxury House · Rear View", "typology": "Luxury residential" },
-      "hotel-biofilico": { "title": "Biophilic Hotel", "typology": "Hospitality" },
-      "spa-bali": { "title": "Bali Spa", "typology": "Wellness" },
-      "casa-madera": { "title": "Timber House", "typology": "Residential" },
-      "oficinas-modernas": { "title": "Modern Offices", "typology": "Workplace" },
-      "oficinas-neo-industrial": { "title": "Neo-Industrial Offices", "typology": "Workplace" },
-      "tienda-de-ropa-neo-industrial": { "title": "Neo-Industrial Retail", "typology": "Retail" },
-      "diseno-interior": { "title": "Residential Interior", "typology": "Interior design" }
+      "villa-luxury-frente-al-mar": { "title": "Bay Terrace", "typology": "Luxury residential" },
+      "casa-mediterranea-luxury": { "title": "Limestone Villa | Boho & Mediterranean", "typology": "Luxury residential" },
+      "vista-trasera-casa-luxury": { "title": "Eave Loft House · Rear View", "typology": "Luxury residential" },
+      "hotel-biofilico": { "title": "Riverside Eco-Lodge", "typology": "Hospitality" },
+      "spa-bali": { "title": "Bamboo Pavilion Spa", "typology": "Wellness" },
+      "casa-madera": { "title": "Timber Frame House", "typology": "Residential" },
+      "oficinas-modernas": { "title": "Timber Slats Offices", "typology": "Workplace" },
+      "oficinas-neo-industrial": { "title": "Open-Plan Hub Offices", "typology": "Workplace" },
+      "tienda-de-ropa-neo-industrial": { "title": "Commercial Hangar – Neo-Industrial Retail", "typology": "Retail" },
+      "diseno-interior": { "title": "Japandi & Wabi-Sabi Residential Interior", "typology": "Interior design" }
     }
   },
   "services": {

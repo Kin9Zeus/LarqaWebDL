@@ -290,7 +290,7 @@ function WorkCard({
             </span>
           </div>
 
-          <div className="mt-4 flex items-baseline justify-between gap-4 border-t border-ink-line pt-4">
+          <div className="mt-4 flex flex-col gap-1 border-t border-ink-line pt-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
             <h3 className="display text-[1.5rem] leading-tight text-bone transition-colors duration-500 group-hover:text-render">
               {project.title}
             </h3>

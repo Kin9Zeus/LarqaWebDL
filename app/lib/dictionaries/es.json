@@ -78,16 +78,16 @@
     "nextLabel": "Siguiente",
     "counterSeparator": "de",
     "projects": {
-      "villa-luxury-frente-al-mar": { "title": "Villa Frente al Mar", "typology": "Residencial de lujo" },
-      "casa-mediterranea-luxury": { "title": "Casa Mediterránea", "typology": "Residencial de lujo" },
-      "vista-trasera-casa-luxury": { "title": "Casa Luxury · Vista Posterior", "typology": "Residencial de lujo" },
-      "hotel-biofilico": { "title": "Hotel Biofílico", "typology": "Hotelería" },
-      "spa-bali": { "title": "Spa Bali", "typology": "Wellness" },
-      "casa-madera": { "title": "Casa Madera", "typology": "Residencial" },
-      "oficinas-modernas": { "title": "Oficinas Modernas", "typology": "Corporativo" },
-      "oficinas-neo-industrial": { "title": "Oficinas Neo-Industrial", "typology": "Corporativo" },
-      "tienda-de-ropa-neo-industrial": { "title": "Retail Neo-Industrial", "typology": "Comercial" },
-      "diseno-interior": { "title": "Interior Residencial", "typology": "Interiorismo" }
+      "villa-luxury-frente-al-mar": { "title": "Terraza Bahía", "typology": "Residencial de lujo" },
+      "casa-mediterranea-luxury": { "title": "Villa Piedra Caliza | Boho & Mediterránea", "typology": "Residencial de lujo" },
+      "vista-trasera-casa-luxury": { "title": "Alero Loft House · Vista Posterior", "typology": "Residencial de lujo" },
+      "hotel-biofilico": { "title": "Ribera Eco-Lodge", "typology": "Hotelería" },
+      "spa-bali": { "title": "Bamboo Pavilion Spa", "typology": "Wellness" },
+      "casa-madera": { "title": "Casa Timber Frame", "typology": "Residencial" },
+      "oficinas-modernas": { "title": "Oficinas Timber Slats", "typology": "Corporativo" },
+      "oficinas-neo-industrial": { "title": "Oficinas Planta Libre Hub", "typology": "Corporativo" },
+      "tienda-de-ropa-neo-industrial": { "title": "Hangar Comercial – Retail Neo-Industrial", "typology": "Comercial" },
+      "diseno-interior": { "title": "Interior Residencial Japandi & Wabi-Sabi", "typology": "Interiorismo" }
     }
   },
   "services": {
