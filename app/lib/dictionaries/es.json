@@ -19,9 +19,9 @@
   },
   "hero": {
     "eyebrow": "Arquitectura + Inteligencia Artificial",
-    "titleLead": "La visión de una arquitecta.",
-    "titleAccent": "La velocidad de la IA.",
-    "subtitle": "Renders fotorrealistas en minutos, no en semanas. Y proyectos completos llevados desde la primera línea hasta la entrega.",
+    "titleLead": "Visión arquitectónica integral.",
+    "titleAccent": "Acelerada por IA.",
+    "subtitle": "Donde la innovación lidera y la tecnología acelera: gestionamos tu proyecto de principio a fin y entregamos renders fotorrealistas en minutos, no en semanas.",
     "ctaPrimary": "Ver la transformación",
     "ctaSecondary": "Iniciar un proyecto",
     "scrollHint": "Desplázate",
@@ -29,8 +29,8 @@
   },
   "method": {
     "eyebrow": "El método",
-    "title": "Del modelo al fotorrealismo.",
-    "body": "Cada imagen empieza donde siempre empezó la arquitectura: en el modelo. La IA no reemplaza ese trabajo, lo ilumina. Arrastra para ver el mismo encuadre en sus dos estados.",
+    "title": "Arquitectura estructurada. Visualización instantánea.",
+    "body": "Detrás de cada render hay un modelo técnico, detallado y pensado para construirse. La IA no crea la arquitectura; toma ese diseño 100% humano y lo proyecta a una visualización fotorrealista. Arrastra para descubrir el encuadre de cada proyecto en sus dos estados.",
     "labelModel": "Modelo 3D",
     "labelRender": "Render final",
     "dragHint": "Arrastra para comparar",
@@ -43,35 +43,35 @@
     "perImage": "por imagen"
   },
   "speed": {
-    "eyebrow": "Por qué importa",
+    "eyebrow": "¿Por qué marca la diferencia?",
     "marquee": "Minutos, no semanas",
-    "title": "Iterar deja de costar una semana.",
-    "body": "El cuello de botella de la arquitectura nunca fue el diseño: fue esperar la imagen. Cuando cada versión toma minutos, puedes ver la fachada en cinco materiales antes del almuerzo y decidir con la imagen delante, no con la imaginación.",
+    "title": "Decisiones ágiles, arquitectura sólida",
+    "body": "El verdadero valor de un proyecto está en cómo se plantea y se estructura. Es por eso que buscamos automatizar los procesos visuales, reducimos el tiempo de semanas a minutos y las decisiones pasan a tomarse con agilidad y certezas. Ese tiempo ganado lo invertimos en lo esencial: afinar los detalles constructivos, potenciar la innovación y funcionalidad, y sobre todo garantizar que el diseño pase de una idea a la realidad con absoluta precisión.",
     "cards": [
       {
         "label": "Tiempo por imagen",
         "before": "5–7 días",
         "after": "Minutos",
-        "note": "El render deja de ser un hito del cronograma y pasa a ser parte de la conversación."
+        "note": "El render deja de ser un hito del cronograma y pasa a ser parte de la conversación y herramienta en la toma de decisiones."
       },
       {
-        "label": "Iteraciones por proyecto",
+        "label": "Iteraciones visuales por proyecto",
         "before": "1 o 2",
         "after": "Las que hagan falta",
-        "note": "Probar una alternativa ya no significa renegociar el plazo de entrega."
+        "note": "Explorar nuevas alternativas en el diseño del proyecto ya no alterará los plazos de entrega."
       },
       {
         "label": "Momento de decidir",
-        "before": "Al final",
-        "after": "Desde el primer día",
-        "note": "El cliente aprueba viendo el espacio terminado, no interpretando un plano."
+        "before": "Durante el desarrollo",
+        "after": "Desde los primeros días",
+        "note": "El cliente aprueba y toma decisiones definitivas desde las primeras imágenes creadas del proyecto, sin necesidad de acudir a otras herramientas de exploración."
       }
     ]
   },
   "work": {
     "eyebrow": "Proyectos",
-    "title": "{count} encuadres. Dos estados cada uno.",
-    "body": "Cada pareja muestra el mismo modelo antes y después del render. Toca cualquiera para compararlos a pantalla completa.",
+    "title": "{count} vistas. Del modelo a la materia.",
+    "body": "Observa el modelado técnico y la visualización final. Haz clic en cualquiera de ellas para ver el antes y el después a detalle.",
     "viewLabel": "Comparar",
     "closeLabel": "Cerrar",
     "prevLabel": "Anterior",

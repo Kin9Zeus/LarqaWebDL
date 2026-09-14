@@ -19,9 +19,9 @@
   },
   "hero": {
     "eyebrow": "Architecture + Artificial Intelligence",
-    "titleLead": "An architect's eye.",
-    "titleAccent": "The speed of AI.",
-    "subtitle": "Photorealistic renders in minutes, not weeks. And complete projects carried from the first line all the way to delivery.",
+    "titleLead": "Complete architectural vision.",
+    "titleAccent": "Accelerated by AI.",
+    "subtitle": "Where innovation leads and technology accelerates: we manage your project from start to finish and deliver photorealistic renders in minutes, not weeks.",
     "ctaPrimary": "See the transformation",
     "ctaSecondary": "Start a project",
     "scrollHint": "Scroll",
@@ -29,8 +29,8 @@
   },
   "method": {
     "eyebrow": "The method",
-    "title": "From model to photorealism.",
-    "body": "Every image starts where architecture has always started: in the model. AI doesn't replace that work, it lights it. Drag to see the same frame in both states.",
+    "title": "Structured architecture. Instant visualization.",
+    "body": "Behind every render is a technical model — detailed and designed to be built. AI doesn't create the architecture; it takes that 100% human design and projects it into a photorealistic visualization. Drag to discover each project's frame in both states.",
     "labelModel": "3D model",
     "labelRender": "Final render",
     "dragHint": "Drag to compare",
@@ -43,35 +43,35 @@
     "perImage": "per image"
   },
   "speed": {
-    "eyebrow": "Why it matters",
+    "eyebrow": "Why It Makes a Difference?",
     "marquee": "Minutes, not weeks",
-    "title": "Iterating stops costing a week.",
-    "body": "Architecture's bottleneck was never the design — it was waiting on the image. When every version takes minutes, you can see the façade in five materials before lunch and decide with the image in front of you instead of in your head.",
+    "title": "Agile decisions, solid architecture",
+    "body": "The real value of a project lies in how it's conceived and structured. That's why we automate the visual process, cutting timelines from weeks to minutes so decisions get made with agility and certainty. We reinvest that time where it matters most: refining constructive details, driving innovation and functionality, and above all, making sure the design becomes reality with absolute precision.",
     "cards": [
       {
         "label": "Time per image",
         "before": "5–7 days",
         "after": "Minutes",
-        "note": "The render stops being a milestone on the schedule and becomes part of the conversation."
+        "note": "The render stops being a milestone on the schedule and becomes part of the conversation — and a tool for decision-making."
       },
       {
-        "label": "Iterations per project",
+        "label": "Visual iterations per project",
         "before": "One or two",
         "after": "As many as it takes",
-        "note": "Trying an alternative no longer means renegotiating the delivery date."
+        "note": "Exploring new design alternatives no longer changes the delivery timeline."
       },
       {
         "label": "When you decide",
-        "before": "At the end",
-        "after": "From day one",
-        "note": "Clients approve by seeing the finished space, not by interpreting a floor plan."
+        "before": "During development",
+        "after": "From the earliest days",
+        "note": "Clients approve and make final decisions from the very first images created for the project, with no need for other exploration tools."
       }
     ]
   },
   "work": {
     "eyebrow": "Work",
-    "title": "{count} frames. Two states each.",
-    "body": "Every pair shows the same model before and after the render. Tap any of them to compare full screen.",
+    "title": "{count} views. From model to matter.",
+    "body": "See the technical model and the final visualization. Click any of them to see the before and after in detail.",
     "viewLabel": "Compare",
     "closeLabel": "Close",
     "prevLabel": "Previous",
