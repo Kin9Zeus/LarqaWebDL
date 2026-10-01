@@ -23,7 +23,9 @@ export default function About({ dict }: { dict: Dictionary }) {
 
         {/* This is the section's statement, not a quotation — the actual quote
             from Laura sits at the end of the column below. */}
-        <h2 className="display max-w-[20ch] text-display-lg text-ink">
+        {/* The lead is written in capitals, which run about a third wider than
+            lowercase, so it takes the medium display size and a wider measure. */}
+        <h2 className="display max-w-[32ch] text-display-md text-ink">
           <RevealWords text={dict.about.lead} />
         </h2>
 
