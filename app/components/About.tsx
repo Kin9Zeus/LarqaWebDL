@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import Reveal, { RevealWords } from './Reveal';
+import portrait from '../lib/portrait.json';
 import { sectionIds } from '../lib/site';
 import type { Dictionary } from '../lib/i18n';
 
@@ -7,8 +9,8 @@ import type { Dictionary } from '../lib/i18n';
  * than a process. The palette inversion is the argument: everything else here
  * is machinery, this part is the architect.
  *
- * A portrait of Laura belongs in the left column — drop the file in
- * public/laura.jpg and add it beside the name block.
+ * The portrait of Laura sits at the head of the left column, above the name
+ * block. Regenerate it with scripts/make-portrait.mjs.
  */
 export default function About({ dict }: { dict: Dictionary }) {
   return (
@@ -30,14 +32,26 @@ export default function About({ dict }: { dict: Dictionary }) {
         </h2>
 
         <div className="mt-16 grid gap-10 md:mt-24 lg:grid-cols-12 lg:gap-16">
-          <Reveal className="lg:col-span-3">
-            <div className="border-t border-ink/20 pt-6">
+          <Reveal className="lg:col-span-4">
+            <div className="mb-8 max-w-[26rem] overflow-hidden bg-ink/5">
+              <Image
+                src="/laura.webp"
+                alt={dict.about.portraitAlt}
+                width={portrait.width}
+                height={portrait.height}
+                placeholder="blur"
+                blurDataURL={portrait.blurDataURL}
+                sizes="(min-width: 1024px) 30vw, (min-width: 448px) 26rem, 100vw"
+                className="h-auto w-full"
+              />
+            </div>
+            <div className="max-w-[26rem] border-t border-ink/20 pt-6">
               <h3 className="display text-[2rem] leading-tight text-ink">{dict.about.name}</h3>
               <p className="mono-label mt-3 text-ink/50">{dict.about.role}</p>
             </div>
           </Reveal>
 
-          <div className="lg:col-span-8 lg:col-start-5">
+          <div className="lg:col-span-7 lg:col-start-6">
             <Reveal delay={0.1}>
               <p className="text-lg leading-relaxed text-ink/75">{dict.about.body1}</p>
             </Reveal>
