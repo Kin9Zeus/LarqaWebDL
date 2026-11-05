@@ -1,9 +1,51 @@
-# LARQA Web
+<div align="center">
 
-Bilingual landing site for LARQA — the architecture practice of Laura Martínez,
-positioned around AI-accelerated architectural visualization.
+<img src="docs/readme/hero.jpg" alt="larqa.co home: the headline over a render of a tropical villa with a timber gallery" width="100%" />
 
-**Live:** [larqa.co](https://www.larqa.co) · deployed from `main` via Railway.
+# LARQA · Arquitectura
+
+**The architecture practice of Laura Martínez, presented as a calibrated viewport: the site does not describe AI-accelerated visualization — it demonstrates it, from untextured 3D model to photoreal render, under your cursor.**
+
+<br/>
+
+[![Sitio en vivo](https://img.shields.io/badge/Live_site-larqa.co-e4a853?style=for-the-badge&labelColor=0b0c0e)](https://www.larqa.co/)
+
+![Next.js](https://img.shields.io/badge/Next.js_16-0b0c0e?style=flat-square&logo=nextdotjs&logoColor=e8e4dd)
+![React](https://img.shields.io/badge/React_19-0b0c0e?style=flat-square&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-0b0c0e?style=flat-square&logo=typescript&logoColor=3178C6)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_4-0b0c0e?style=flat-square&logo=tailwindcss&logoColor=38BDF8)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-0b0c0e?style=flat-square&logo=framer&logoColor=e8e4dd)
+![Resend](https://img.shields.io/badge/Resend-0b0c0e?style=flat-square&logo=resend&logoColor=e8e4dd)
+![Railway](https://img.shields.io/badge/Deploy-Railway-0b0c0e?style=flat-square&logo=railway&logoColor=e8e4dd)
+![i18n](https://img.shields.io/badge/ES_·_EN-0b0c0e?style=flat-square&logoColor=e8e4dd)
+
+</div>
+
+---
+
+## Highlights
+
+| | |
+|---|---|
+| 🎚️ **A comparator that is the argument** | The signature element: one frame in two states — the untextured 3D model and the final render. Underneath is a real `<input type="range">` at zero opacity, so keyboard and touch dragging work natively. The slider position drives `--reveal`, and the whole section's accent travels from draft blue (`#5fa8d3`) to render amber (`#e4a853`) as you drag. |
+| 🎞️ **A hero that tells the process** | One continuous shot: drawing → 3D model → render → built work. Scrubbed by scroll on desktop, a muted loop on mobile. The Veo 3.1 prompts and encoding spec are in [`docs/hero-video.md`](docs/hero-video.md). |
+| ⏱️ **"Minutes, not weeks"** | The speed section sets the traditional 5–7 days per image against minutes with LARQA, under the page's one loud typographic marquee. |
+| 🖼️ **An editorial gallery that never shifts** | Nine *model → render* pairs on a 12-column grid. A script derives WebP files plus each image's dimensions and a base64 blur placeholder, so nothing moves on load. |
+| 🌐 **Properly bilingual** | `/es` and `/en` with `Accept-Language` detection in `proxy.ts`. `es.json` defines the dictionary type, so a missing English key fails the build. |
+| ✨ **Motion as progressive enhancement** | Scroll entrances never depend on JavaScript: if it fails, the page is still complete. A trailing ring cursor opens over interactive elements without hiding the native cursor. |
+| ✉️ **A safe contact form** | Every field is validated and escaped before it is templated into the email Resend sends. |
+
+## Screenshots
+
+<div align="center">
+  <img src="docs/readme/screens.jpg" alt="Four desktop screens: the hero, the comparator with the speed section, the project gallery and services" width="100%" />
+  <br/><sub><b>Desktop</b> — hero, comparator and speed, editorial gallery and services.</sub>
+  <br/><br/>
+  <img src="docs/readme/mobile.jpg" alt="Two mobile screens of the site" width="60%" />
+  <br/><sub><b>Mobile</b></sub>
+</div>
+
+---
 
 ## Stack
 
