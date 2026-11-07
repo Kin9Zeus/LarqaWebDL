@@ -9,6 +9,7 @@
 <br/>
 
 [![Sitio en vivo](https://img.shields.io/badge/Live_site-larqa.co-e4a853?style=for-the-badge&labelColor=0b0c0e)](https://www.larqa.co/)
+[![CI](https://github.com/Kin9Zeus/LarqaWebDL/actions/workflows/ci.yml/badge.svg)](https://github.com/Kin9Zeus/LarqaWebDL/actions/workflows/ci.yml)
 
 ![Next.js](https://img.shields.io/badge/Next.js_16-0b0c0e?style=flat-square&logo=nextdotjs&logoColor=e8e4dd)
 ![React](https://img.shields.io/badge/React_19-0b0c0e?style=flat-square&logo=react&logoColor=61DAFB)
